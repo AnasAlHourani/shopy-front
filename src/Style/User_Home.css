@@ -1,0 +1,6 @@
+.user-home_container{
+    display: grid;
+    grid-template-rows: 4.5em calc(100% - 4.5em);
+    
+}
+ 
