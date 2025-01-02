@@ -29,7 +29,6 @@ i{
     font-size: 1.7em;
     align-items: center;
     cursor: pointer;
-
 }
 .g-bk{
     width: 100dvw;
@@ -67,7 +66,7 @@ i{
 .page_container{
     margin: 0 auto;
     height: 100%;
-    position: relative;
+    /* position: relative; */
 }
 
 
@@ -128,8 +127,10 @@ i{
 }
 
 .g-home-page_body{
-    width: 100%;
+    /* width: 100%; */
+    width: 100dvw;
     height: 100%;
+    overflow-y: scroll;
 }
 
 .g-search-box{
@@ -161,6 +162,7 @@ i{
     height: calc(100dvh);
     background-color: var(--light-gray);
     position: absolute;
+    position: fixed;
     top: 0%;
     right: 0;
     transform: translate(0, 0%);
@@ -200,6 +202,26 @@ i{
 .header-menu-leave-to{
     transform: translate(40em, 0%);
 }
+/* width */
+::-webkit-scrollbar {
+    width: .2em;
+    height: .2em;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: var(--light-gray);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--solid-pink);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--solid-purple);
+}
 
 @keyframes loader {
     0%{
@@ -215,6 +237,7 @@ i{
 
 .page_container{
     width: 100%;
+    width: 100dvw;
 }
 @media (min-width: 1000px) {
     /* .page_container{
@@ -240,7 +263,9 @@ i{
         .g-search-box{
             margin: 0 1em 0 auto;
         }
-        
+        .g-home-page_header{
+            font-size: 13px;
+        }
         .g-search-box .g-search-box_input,
         .g-search-box .auth-form_btn{
             display: none;
@@ -274,4 +299,8 @@ i{
     .page_container{
         width: 100%;
     }
+    .g-home-page_header{
+        font-size: 9px;
+    }
+
 }

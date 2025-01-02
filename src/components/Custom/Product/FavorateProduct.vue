@@ -6,8 +6,8 @@
         <h4 class="home-product_desc" >{{ desc }}</h4>
         <div class="home-product_footer">
             <p class="home-product_price">{{ price }}$</p>
-            <i class="fa fa-heart home-product_save-btn" ></i>
-            <p class="home-product_add-to-cart" >add to cart</p>
+            <i class="fa fa-trash fa-lg home-product_save-btn favorate-product_rabbish-btn  " ></i>
+            <i class="fa fa-heart home-product_save-btn favorate-product_save-btn" ></i>
         </div>
     </div>
 </template>

@@ -6,8 +6,9 @@
         <h4 class="home-product_desc" >{{ desc }}</h4>
         <div class="home-product_footer">
             <p class="home-product_price">{{ price }}$</p>
-            <i class="fa fa-heart home-product_save-btn" ></i>
-            <p class="home-product_add-to-cart" >add to cart</p>
+            <i class="home-product_save-btn cart-product_btn -m" >-</i>
+            <p class="cart-product_qty" >6</p>
+            <i class="home-product_save-btn cart-product_btn -p" >+</i>
         </div>
     </div>
 </template>

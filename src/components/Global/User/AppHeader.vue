@@ -2,7 +2,7 @@
     <header class="g-home-page_header" >
         <header-logo />
         <search-box  />
-        <menu-header />
+        <menu-header :active="active" />
     </header>
 </template>
 <script>
@@ -15,6 +15,8 @@ export default {
         HeaderLogo,
         SearchBox,
         MenuHeader,
-    },
+    },props:{
+        active:{},
+    }, 
 }
 </script>
