@@ -17,6 +17,12 @@
                         <cart-product v-for="i in 100" :key="i"  />
                     </template>
                 </group-home-product>
+                <home-section-headline :label="'Mon 2/11/2022 :'"  />
+                <group-home-product >
+                    <template #default >
+                        <cart-product v-for="i in 100" :key="i"  />
+                    </template>
+                </group-home-product>
             </body>
         </div>
     </div>
