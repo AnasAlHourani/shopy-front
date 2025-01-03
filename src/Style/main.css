@@ -136,6 +136,7 @@ i{
 .g-search-box{
     padding: .2em;
     margin: 0 auto;
+    position: relative;
 }
 .g-search-box_icon{
     display: none;
@@ -152,6 +153,24 @@ i{
     height: 3em;
     /* background-color: var(--light-gray); */
     background: var(--white);
+}
+.g-search-box_predictable{
+    width: 100%;
+    min-height: 1em;
+    background-color: var(--light-pink);
+    position: absolute;
+    border-radius: .7em;
+    overflow-y: scroll;
+    max-height: 14em;
+    z-index: 1000;
+}
+.g-search-box-predictable_one{
+    padding: .4em;
+    font-weight: bold;
+    border-radius: .3em;
+    background-color: var(--light-gray);
+    margin: .4em;
+    cursor: pointer;
 }
 
 .g-menu-header{
