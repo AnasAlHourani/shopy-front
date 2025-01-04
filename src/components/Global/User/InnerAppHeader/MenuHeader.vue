@@ -40,6 +40,7 @@
         <transition name="header-menu" >
             <div v-if="openMenu" class="g-menu-header_menu" >
                 <header-logo />
+                <menu-header-btn :active="active==='profile'" :label="'profile'" :to="'/profile'" />
                 <menu-header-btn :active="active==='home'" :label="'Home'" :to="'/home'" />
                 <menu-header-btn :active="active==='favorate'" :label="'Favorate'" to="/favorate" />
                 <menu-header-btn :active="active==='cart'" :label="'Cart'" to="/cart" />
