@@ -6,6 +6,7 @@
         <i class="fa fa-bars" @click="toOpenMenu" ></i>
         <transition name="fade" >
             <div v-if="openProductPopUp" class="g-product-pop-up">
+                <div class="g-close-btn-for-mobile" @click="toCloseProductPopup" >+</div>
                 <div class="g-product-pop-up_title">Create Product :</div>
                 <div class="g-product-pop-up_input-box">
                     <div class="g-product-pop-up_label">Product Name:</div>
@@ -18,6 +19,10 @@
                 <div class="g-product-pop-up_input-box">
                     <div class="g-product-pop-up_label">Quentity:</div>
                     <input type="text" placeholder="2" class="g-product_input">
+                </div>
+                <div class="g-product-pop-up_input-box">
+                    <div class="g-product-pop-up_label">Product Picture:</div>
+                    <input ref="productFile" type="file" placeholder="2" class="g-product_input">
                 </div>
                 <div class="g-product-pop-up_input-box  desc ">
                     <div class="g-product-pop-up_label">Product description:</div>
@@ -70,6 +75,7 @@ export default {
         const openNotification = ref(false);
         const openProductPopUp = ref(false);
         const router = useRouter();  
+        const productFile = ref(null);
         function toOpenMenu(){
             openMenu.value=true;
         }
@@ -94,10 +100,12 @@ export default {
         function toCloseProductPopup(){
             openProductPopUp.value = !true;
         }
+
         return{
             openMenu,
             openNotification,
             openProductPopUp,
+            productFile,
             toOpenMenu,
             toCloseMenu,
             toCartPage,
