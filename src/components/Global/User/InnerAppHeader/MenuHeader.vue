@@ -40,12 +40,12 @@
         <transition name="header-menu" >
             <div v-if="openMenu" class="g-menu-header_menu" >
                 <header-logo />
-                <menu-header-btn :active="active==='profile'" :label="'profile'" :to="'/profile'" />
                 <menu-header-btn :active="active==='home'" :label="'Home'" :to="'/home'" />
-                <menu-header-btn :active="active==='favorate'" :label="'Favorate'" to="/favorate" />
                 <menu-header-btn :active="active==='cart'" :label="'Cart'" to="/cart" />
                 <menu-header-btn :active="active==='order'" :label="'Order'" to="/order" />
-                <menu-header-btn @click="logout" :active="active==='logout'" :label="'Log out'" to="/auth/log-in" />
+                <menu-header-btn :active="active==='favorate'" :label="'Favorate'" to="/favorate" />
+                <menu-header-btn :active="active==='profile'" :label="'profile'" :to="'/profile'" />
+                <menu-header-btn @click="logout" :active="active==='logout'" :label="'Log out'" to="/log-in" />
                 <div class="g-close-btn-for-mobile" @click="toCloseMenu" >+</div>
                 <teleport to='body' ><div @click="toCloseMenu" class="g-bk"></div></teleport>
             </div>
@@ -86,7 +86,7 @@ export default {
             router.push('/cart');
         }
         function logout(){
-            router.push('/auth/log-in');
+            router.push('/log-in');
         }
         function toOpenProductPopup(){
             openProductPopUp.value = true;

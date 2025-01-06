@@ -19,5 +19,13 @@ const app = createApp(App);
 app.component('AppLoader',AppLoader);
 app.component('AppMsg',AppMsg);
 
-    app.use(store).use(router).mount('#app');
+app.use(store).use(router);
+
+
+router.isReady()
+.then(function(){
+    app.mount('#app');
+});
+
+
 

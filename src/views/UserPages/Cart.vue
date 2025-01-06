@@ -3,7 +3,7 @@
         <div class="page_container user-home_container">
             <AppHeader :active="'cart'" />
             <body class="g-home-page_body">
-                <group-home-product class="user-cart_head-line" >
+                <group-home-product class="user-cart_head-line btn-box" >
                     <template #default>
                         <h3 class="user-cart-head-line_title">Cart</h3>
                             <h5 class="user-cart-price-box_total" >Total Price : 4$</h5>

@@ -7,7 +7,7 @@
             <AuthFormInput :label="'Your email :'" ref="emailFiled" :placeholder="'jhon@example.com'" :type="'email'" />
             <AuthFormInput :label="'Your password :'" ref="passwordFiled" :placeholder="'**********'" :type="'password'" />
             <auth-form-btn  @click="fakeConnection" :label="'Log in'" />
-            <auth-form-link :to="'/auth/sign-up'" :label="'Create a new email !'" />
+            <auth-form-link :to="'/sign-up'" :label="'Create a new email !'" />
         </div>
     </form>
 </template>

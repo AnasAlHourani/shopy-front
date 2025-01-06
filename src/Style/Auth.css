@@ -28,6 +28,7 @@
 .auth-page-form_img{
     width: 18em;
     height: 15em;
+    height: 14em;
 }
 .auth-page-form_middle-bar{
     background: var(--solid-pink);

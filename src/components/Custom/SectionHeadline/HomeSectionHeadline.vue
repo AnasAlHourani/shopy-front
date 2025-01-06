@@ -1,5 +1,5 @@
 <template>
-    <p class="home-section-head-line" >
+    <p class="home-section-head-line " >
         {{ label }}
     </p>
 </template>

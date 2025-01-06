@@ -211,6 +211,7 @@
     font-weight: bold;
     margin: 0 0.3em;
     cursor: pointer;
+    white-space: nowrap;
 }
 .user-cart_btn-main{
     background: var(--solid-pink);
@@ -240,7 +241,7 @@
     max-width: 90%;
     width: 60em;
     width: 100em;
-    height: 5em;
+    min-height: 5em;
     background-color: var(--light-gray);
     margin: 1.3em auto;
     border-radius: .5em;
@@ -285,6 +286,7 @@
 .cart-order_btn-sec{
     color: var(--light-blue);
     border-color: var(--light-blue);
+    /* font-size: .5em ; */
 }
 
 @media (max-width: 767px) {

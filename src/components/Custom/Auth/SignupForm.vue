@@ -8,7 +8,7 @@
             <AuthFormInput ref="birthDayFiled" :label="'Your Birth day :'" :placeholder="''" :type="'date'" />
             <auth-form-radio ref="genderFiled" />
             <auth-form-btn @click="fakeConnection"  :label="'Sign up'" />
-            <auth-form-link :to="'/auth/log-in'" :label="'Already have an account?!'" />
+            <auth-form-link :to="'/log-in'" :label="'Already have an account?!'" />
         </div>
         <div class="auth-page-form_middle-bar" ></div>
         <img  class="auth-page-form_img" src="../../../assets/System/Signup.png" alt="">

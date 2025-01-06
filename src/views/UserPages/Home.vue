@@ -22,6 +22,8 @@
     </div>
 </template>
 <script>
+
+
 import AppHeader from '@/components/Global/User/AppHeader.vue';
 import HomeProduct from '@/components/Custom/Product/HomeProduct.vue';
 import HomeSpecailProduct from '@/components/Custom/Product/HomeSpecailProduct.vue';
