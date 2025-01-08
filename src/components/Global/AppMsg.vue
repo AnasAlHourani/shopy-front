@@ -10,7 +10,7 @@ import { ref , watch  } from 'vue';
 export default {
     setup(){
         const msg = ref('hello');
-        const dTime = ref(1000);
+        const dTime = ref(3000);
         const open = ref(false);
         function setMsg (newMsg,time){
             msg.value = newMsg;

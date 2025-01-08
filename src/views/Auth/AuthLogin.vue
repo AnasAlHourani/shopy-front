@@ -2,7 +2,7 @@
     <div class="page auth-page">
         <div class="page_container">
             <header class="auth-page_header" >
-                <header-logo/>
+                <header-logo />
             </header>
             <body class="auth-page_body" >
                 <login-form />
@@ -26,7 +26,6 @@ export default {
     setup(){
         const appLoader = ref(null);
         const appMsg = ref(null);
-
         function openLoader(){
             appLoader.value.openLoader();
         }
@@ -36,15 +35,13 @@ export default {
         function msg(msg){
             appMsg.value.setMsg(msg);
         }
-
         provide('openLoader',openLoader);
         provide('closeLoader',closeLoader);
         provide('msg',msg);
-        
         return{
             appLoader,
             appMsg,
         };
-    },
+    }
 }
 </script>

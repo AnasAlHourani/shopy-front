@@ -7,7 +7,7 @@
             <AuthFormInput ref="passwordFiled" :label="'Your password :'" :placeholder="'**********'" :type="'password'" />
             <AuthFormInput ref="birthDayFiled" :label="'Your Birth day :'" :placeholder="''" :type="'date'" />
             <auth-form-radio ref="genderFiled" />
-            <auth-form-btn @click="fakeConnection"  :label="'Sign up'" />
+            <auth-form-btn @click="SignUp"  :label="'Sign up'" />
             <auth-form-link :to="'/log-in'" :label="'Already have an account?!'" />
         </div>
         <div class="auth-page-form_middle-bar" ></div>
@@ -15,7 +15,7 @@
     </form>
 </template>
 <script>
-    import { ref } from 'vue';
+    import { ref , computed , watch } from 'vue';
     import axios from 'axios';
     import AuthFormInput from '../Inputs/AuthFormInput.vue';
     import AuthFormDoubleInput from '../Inputs/AuthFormDoubleInput.vue';
@@ -23,6 +23,9 @@
     import AuthFormRadio from '../RadioInput/AuthFormRadio.vue';
     import AuthFormBtn from '../Buttons/AuthFormBtn.vue';
     import { inject } from 'vue';
+    import { useStore } from 'vuex';
+    import { useRouter } from 'vue-router';
+    
     export default {
         components:{
             AuthFormInput,
@@ -32,10 +35,37 @@
             AuthFormRadio,
         },
         setup(){
+            const router = useRouter();
+            const store = useStore();
+            const userProfile = computed(() => store.getters['authStore/getProfile']);  
+            const errValidation = computed(()=> store.getters['authStore/getErrValidation']);
+            const loadPage = computed(()=> store.getters['authStore/getsendingRequest']);
+            const toHomePage = computed(()=>store.getters['authStore/getLogged']);
+
+
+
             const openLoader = inject('openLoader');
             const msg = inject('msg');
             const closeLoader = inject('closeLoader');
             
+            watch(errValidation,(value)=>{
+                if(value)
+                    msg(value);
+            });
+            watch(loadPage,(value)=>{
+                if(value){
+                    openLoader();
+                }else{
+                    closeLoader();
+                    
+                }
+            });
+            watch(toHomePage,(value)=>{
+                if(value) {
+                    router.push('/home');
+                }
+            });
+
             const nameFiled = ref(null);
             const emailFiled  = ref(null);
             const passwordFiled  = ref(null);
@@ -57,6 +87,22 @@
                 birthDay.value = birthDayFiled.value.getValue();
                 gender.value = genderFiled.value.getValue();
             }
+            
+            function SignUp(){
+                collectData();
+                store.commit('authStore/updateLocalDate',{
+                    firstName: firstName.value,
+                    lastName: lastName.value,
+                    email: email.value,
+                    password: password.value,
+                    birthDay: birthDay.value,
+                    gender: gender.value,
+                });
+                store.dispatch('authStore/signUp');
+                // console.log(userProfile.value);
+            }
+
+
             function printValues(){
                 console.log('###############');
                 console.log(firstName);
@@ -67,25 +113,22 @@
                 console.log(gender);
                 console.log('###############');
             }
-
             function fakeConnection(){
-                collectData();
-                printValues();
-                openLoader();
-                msg('Loading...');
-                setTimeout(() => {
-                    closeLoader();
-                }, 500);
+                // collectData();
+                // printValues();
+                // openLoader();
+                // msg('Loading...');
+                // setTimeout(() => {
+                //     closeLoader();
+                // }, 500);
             }
-
-
             return{
                 nameFiled,
                 emailFiled,
                 passwordFiled,
                 genderFiled,
                 birthDayFiled,
-                fakeConnection,
+                SignUp,
             };
         },
     }

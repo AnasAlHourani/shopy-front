@@ -17,7 +17,9 @@ export default {
             open.value = true;
         }
         function closeLoader(){
-            open.value = false;
+            setTimeout(() => {
+                open.value = false;
+            }, 500);
         }
         return{
             open,

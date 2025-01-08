@@ -15,16 +15,19 @@
 <script>
 import HeaderLogo from '@/components/Global/HeaderLogo.vue';
 import SignupForm from '@/components/Custom/Auth/SignupForm.vue';
-import { ref , provide } from 'vue';
+import { ref , provide , computed  } from 'vue';
+
 export default {
     components:{
         HeaderLogo,
         SignupForm,
     },
+    computed: {
+        
+    },
     setup(){
         const appLoader = ref(null);
         const appMsg = ref(null);
-
         function openLoader(){
             appLoader.value.openLoader();
         }
@@ -34,7 +37,6 @@ export default {
         function msg(msg){
             appMsg.value.setMsg(msg);
         }
-
         provide('openLoader',openLoader);
         provide('closeLoader',closeLoader);
         provide('msg',msg);
