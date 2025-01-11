@@ -10,7 +10,7 @@ export default function state(){
         gender: '',
         token: '',
         logged: false,
-        backEndIp: 'http://localhost:3000/',
+        // backEndIp: 'http://localhost:3000/',
     };
 };
 

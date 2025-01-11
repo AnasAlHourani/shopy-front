@@ -4,7 +4,7 @@ import authStore from './Auth/main';
 
 export default createStore({
   state: {
-
+    backEndIp: 'http://localhost:3000/',
   },
   getters: {
   },

@@ -2,8 +2,8 @@ export default {
     getErrValidation(state){
         return state.errValidation;
     },
-    ip(state,){
-        const ip = state.backEndIp;
+    ip(state,_,rootState){
+        const ip = rootState.backEndIp;
         return {
             signUp: ip + 'auth/sign-up',
             logIn: ip + 'auth/log-in',
