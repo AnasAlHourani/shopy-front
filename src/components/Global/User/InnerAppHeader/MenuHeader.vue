@@ -35,13 +35,15 @@
                 </div>
             </div>
         </transition>
+        <!-- ================= -->
         <div v-if="openProductPopUp" @click="toCloseProductPopup" class="g-bk bk-notfication g-bk-product"  ></div>
         <transition name="fade" >
             <div v-if="openNotification" class="g-notification-menu">
-                <p v-for="i in 100" :key="i" class="g-notification" :class="{'seen':i%2}" >You got a new notification</p>
+                <p v-for="one in notifications" :key="one.id" @click="makeNotificationSeen(one.id)" class="g-notification" :class="{'seen': one.seen}" >{{ one.content }}</p>
             </div>
         </transition>
         <div  v-if="openNotification" class="g-bk bk-notfication" @click="toCloseNotification" ></div>
+        <!-- ================= -->
         <transition name="header-menu" >
             <div v-if="openMenu" class="g-menu-header_menu" >
                 <header-logo />
@@ -59,10 +61,12 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref , watch , computed } from 'vue';
 import { useRouter } from 'vue-router';
 import HeaderLogo from '@/components/Global/HeaderLogo.vue';
 import MenuHeaderBtn from '@/components/Custom/Buttons/MenuHeaderBtn.vue';
+import { useStore } from 'vuex';
+
 export default {
     components: {
         HeaderLogo,
@@ -71,6 +75,15 @@ export default {
         active:{},
     },
     setup(){
+        const store = useStore();
+        const notifications = computed(()=> store.getters['notificationStore/getNotifications']);
+        console.log(notifications);
+        store.dispatch('notificationStore/getMyNotfications');
+        
+        function makeNotificationSeen(id) {
+            store.dispatch('notificationStore/makeNotificationSeen',{id});
+        }
+        
         const openMenu = ref(false);
         const openNotification = ref(false);
         const openProductPopUp = ref(false);
@@ -114,6 +127,8 @@ export default {
             toCloseNotification,
             toOpenProductPopup,
             toCloseProductPopup,
+            notifications,
+            makeNotificationSeen,
         };
     },
 }

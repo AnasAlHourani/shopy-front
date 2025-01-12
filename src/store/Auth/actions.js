@@ -11,7 +11,6 @@ export default {
             context.commit('stopSendRequest');
             if(response.status === 201){
                 const resData = response.data;
-                // console.log(resData);
                 context.commit('signUpSuccessfuly',{token: resData.token});
             }else{
                 throw new Error();
@@ -43,7 +42,6 @@ export default {
             context.commit('stopSendRequest');
             if(response.status === 201){
                 const resData = response.data;
-                // console.log(resData);
                 context.commit('signUpSuccessfuly',{token: resData.token});
             }else{
                 throw new Error();
