@@ -12,4 +12,10 @@ export default {
         }
         state.notifications = notifications;
     }
+    ,openLoadingPage(state){
+        state.loadingNotfication = true;
+    }
+    ,closeLoadingPage(state){
+        state.loadingNotfication = !true;
+    }
 };

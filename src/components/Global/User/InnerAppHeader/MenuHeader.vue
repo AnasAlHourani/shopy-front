@@ -10,28 +10,28 @@
                 <div class="g-product-pop-up_title">Create Product :</div>
                 <div class="g-product-pop-up_input-box">
                     <div class="g-product-pop-up_label">Product Name:</div>
-                    <input type="text" placeholder="Ice Creem" class="g-product_input">
+                    <input type="text" v-model="productName" placeholder="Ice Creem" class="g-product_input">
                 </div>
                 <div class="g-product-pop-up_input-box">
-                    <div class="g-product-pop-up_label">Pric:</div>
-                    <input type="text" placeholder="3.1" class="g-product_input">
+                    <div class="g-product-pop-up_label" >Pric:</div>
+                    <input type="text" v-model="productPrice" placeholder="3.1" class="g-product_input">
                 </div>
                 <div class="g-product-pop-up_input-box">
                     <div class="g-product-pop-up_label">Quentity:</div>
-                    <input type="text" placeholder="2" class="g-product_input">
+                    <input type="text" v-model="productQty" placeholder="2" class="g-product_input">
                 </div>
                 <div class="g-product-pop-up_input-box">
                     <div class="g-product-pop-up_label">Product Picture:</div>
-                    <input ref="productFile" type="file" placeholder="2" class="g-product_input">
+                    <input ref="productFile"  type="file" placeholder="2" class="g-product_input">
                 </div>
                 <div class="g-product-pop-up_input-box  desc ">
                     <div class="g-product-pop-up_label">Product description:</div>
                     <!-- <input type="text"> -->
-                    <textarea class="g-product_input " placeholder="Product Description ..." ></textarea>
+                    <textarea class="g-product_input" v-model="productDesc" placeholder="Product Description ..." ></textarea>
                 </div>
                 <div class="g-product-pop-up_btn-box">
-                    <button class="user-cart_btn-sec user-cart_btn-sec" >Cancel</button>
-                    <button class="user-cart_btn-sec user-cart_btn-main" >Create</button>
+                    <button class="user-cart_btn-sec user-cart_btn-sec"  >Cancel</button>
+                    <button class="user-cart_btn-sec user-cart_btn-main" @click="createProduct" >Create</button>
                 </div>
             </div>
         </transition>
@@ -77,11 +77,25 @@ export default {
     setup(){
         const store = useStore();
         const notifications = computed(()=> store.getters['notificationStore/getNotifications']);
-        console.log(notifications);
         store.dispatch('notificationStore/getMyNotfications');
         
         function makeNotificationSeen(id) {
             store.dispatch('notificationStore/makeNotificationSeen',{id});
+        }
+
+        const productName = ref('');
+        const productDesc = ref('');
+        const productPrice = ref('');
+        const productQty = ref('');
+
+        async function createProduct(){
+            await store.dispatch('myProductStore/create',{
+                name: productName.value,
+                desc: productDesc.value,
+                qty: productQty.value,
+                price: productPrice.value,
+            });
+            toCloseProductPopup();
         }
         
         const openMenu = ref(false);
@@ -113,6 +127,9 @@ export default {
         function toCloseProductPopup(){
             openProductPopUp.value = !true;
         }
+        
+    
+
 
         return{
             openMenu,
@@ -129,6 +146,11 @@ export default {
             toCloseProductPopup,
             notifications,
             makeNotificationSeen,
+            productName,
+            productDesc,
+            productQty,
+            productPrice,
+            createProduct,
         };
     },
 }

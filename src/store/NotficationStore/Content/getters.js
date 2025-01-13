@@ -9,6 +9,9 @@ export default {
             seen: ip + 'notfication/see-notfication/' ,
         }
     },
+    loadingNotfication(state){
+        return state.loadingNotfication;
+    },
     getNotifications(state){
         return state.notifications;
     },

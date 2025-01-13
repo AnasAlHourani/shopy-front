@@ -25,7 +25,7 @@
                         </div> -->
                     </div>
                     <div v-if="tab === 2" class="g-profile-page_product-box" >
-                        <ProfileProduct v-for="i in 100" :key="i"  />
+                        <ProfileProduct v-for="product in myProduct" :id="product.id" :qty="product.qty" :name="product.name" :desc="product.desc" :price="product.price"  :key="product.id"  />
                     </div>
                     <div v-if="tab === 3" class="g-profile-page_product-salles" >
                         <ProfileProductSell v-for="i in 100" :key="i" />
@@ -34,12 +34,15 @@
             </div>
         </div>
     </div>
+    <app-loader ref="appLoader" />
 </template>
 <script>
-import { ref } from 'vue';
+import { ref , computed, watch } from 'vue';
 import AppHeader from '@/components/Global/User/AppHeader.vue';
 import ProfileProduct from '@/components/Custom/Product/ProfileProduct.vue';
 import ProfileProductSell from '@/components/Custom/ProductSell/ProfileProductSell.vue';
+
+import { useStore } from 'vuex'; 
 export default {
     components:{
         AppHeader,
@@ -47,6 +50,19 @@ export default {
         ProfileProductSell,
     },
     setup(){
+        const store = useStore();
+        store.dispatch('myProductStore/get');
+        const myProduct = computed(()=> store.getters['myProductStore/getMyProduct']);
+        const loadingPage = computed(()=> store.getters['myProductStore/loadingPage']);
+        const appLoader = ref(null);
+        watch(loadingPage,(val)=>{
+            if(val){
+                appLoader.value.openLoader();
+            }else{
+                appLoader.value.closeLoader();
+            }
+        });
+
         const tab = ref(1);
         function changeTab(num){
             tab.value = num;
@@ -54,6 +70,8 @@ export default {
         return{
             tab,
             changeTab,
+            myProduct,
+            appLoader,
         };
     },
 }
