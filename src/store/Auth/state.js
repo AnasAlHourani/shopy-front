@@ -8,8 +8,8 @@ export default function state(){
         birthDay: '',
         password: '',
         gender: '',
-        token: '',
-        // token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhbmFzc0Bzc3Muc3NzcyIsImlhdCI6MTczNjc3MzA3OCwiZXhwIjoxNzM2Nzc2Njc4LCJpc3MiOiJTaG9weSJ9.O-gH4QKBbmkk_L-EM2jLB6A4F8x7pCehZ2YVl-1NBew',
+        // token: '',
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhbmFzc0Bzc3Muc3NzcyIsImlhdCI6MTczNjg3OTYwNCwiZXhwIjoxNzM2ODgzMjA0LCJpc3MiOiJTaG9weSJ9.aMDTyVNKmvD2KZZQylbzmpMwckOsigR5H9ZTKWt7tpQ',
         logged: false,
         // backEndIp: 'http://localhost:3000/',
     };

@@ -6,12 +6,14 @@
         <h4 class="home-product_desc" >{{ desc }}</h4>
         <div class="home-product_footer">
             <p class="home-product_price">{{ price }}$</p>
-            <i class="fa fa-heart home-product_save-btn" ></i>
+            <i class="fa fa-heart home-product_save-btn" @click="addToFavorate()" ></i>
             <p class="home-product_add-to-cart" >add to cart</p>
         </div>
     </div>
 </template>
 <script>
+import { useStore } from 'vuex';
+
 export default {
     props:{
         brand:{
@@ -25,7 +27,18 @@ export default {
         },
         price:{
             default: '0',
-        },
+        },id:{
+            default: null,
+        }
+    },setup(props,){
+        const store = useStore();
+        function addToFavorate(){
+            store.dispatch('favorateProductsStore/create',{id: props.id});
+        }
+
+        return{
+            addToFavorate,
+        };
     }
 }
 </script>

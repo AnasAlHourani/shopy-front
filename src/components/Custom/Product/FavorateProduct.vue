@@ -6,12 +6,14 @@
         <h4 class="home-product_desc" >{{ desc }}</h4>
         <div class="home-product_footer">
             <p class="home-product_price">{{ price }}$</p>
-            <i class="fa fa-trash fa-lg home-product_save-btn favorate-product_rabbish-btn  " ></i>
+            <i class="fa fa-trash fa-lg home-product_save-btn favorate-product_rabbish-btn  " @click="deleteFromFavorate"  ></i>
             <i class="fa fa-heart home-product_save-btn favorate-product_save-btn" ></i>
         </div>
     </div>
 </template>
 <script>
+import { useStore } from 'vuex';
+
 export default {
     props:{
         brand:{
@@ -26,6 +28,19 @@ export default {
         price:{
             default: '0',
         },
+        id:{
+            default: null
+        }
+    },
+    setup(props){
+
+        const store = useStore();
+        function deleteFromFavorate(){
+            store.dispatch('favorateProductsStore/delete',{ id :props.id});
+        }
+        return{
+            deleteFromFavorate,
+        }
     }
 }
 </script>
