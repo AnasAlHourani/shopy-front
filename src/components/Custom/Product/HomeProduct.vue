@@ -7,7 +7,7 @@
         <div class="home-product_footer">
             <p class="home-product_price">{{ price }}$</p>
             <i class="fa fa-heart home-product_save-btn" @click="addToFavorate()" ></i>
-            <p class="home-product_add-to-cart" >add to cart</p>
+            <p class="home-product_add-to-cart" @click="addToCart" >add to cart</p>
         </div>
     </div>
 </template>
@@ -35,9 +35,13 @@ export default {
         function addToFavorate(){
             store.dispatch('favorateProductsStore/create',{id: props.id});
         }
+        function addToCart(){
+            store.dispatch('homeProductStore/addToCart',{id: props.id});
+        }
 
         return{
             addToFavorate,
+            addToCart,
         };
     }
 }

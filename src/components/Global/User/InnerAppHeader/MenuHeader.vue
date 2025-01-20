@@ -13,7 +13,7 @@
                     <input type="text" v-model="productName" placeholder="Ice Creem" class="g-product_input">
                 </div>
                 <div class="g-product-pop-up_input-box">
-                    <div class="g-product-pop-up_label" >Pric:</div>
+                    <div class="g-product-pop-up_label" >Price:</div>
                     <input type="text" v-model="productPrice" placeholder="3.1" class="g-product_input">
                 </div>
                 <div class="g-product-pop-up_input-box">

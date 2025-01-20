@@ -5,6 +5,8 @@ import notificationStore from './NotficationStore/main';
 import myProductStore from './MyProductStore/main';
 import homeProductStore from './HomeProductsStore/main';
 import favorateProductsStore from './FavorateProductsStore/main';
+import CartStore from './CartStore/main';
+import OrderStore from './Order/main';
 
 export default createStore({
   state: {
@@ -22,5 +24,7 @@ export default createStore({
     myProductStore,
     homeProductStore,
     favorateProductsStore,
+    CartStore,
+    
   }
 })

@@ -3,26 +3,34 @@
         <div class="page_container user-home_container">
             <AppHeader :active="'home'" />
             <body class="g-home-page_body">
-                <!-- <home-section-headline label="Specail Products :"  /> -->
-                <!-- <home-specail-product   /> -->
-                <home-section-headline label="Latest Products :"  />
-                <group-home-product >
-                    <template #default >
-                        <home-product v-for="one in latestProducts" :key="one.id" 
-                            :id="one.id"
-                            :name="one.name"
-                            :desc="one.desc"
-                            :price="one.price"
-                            :qty="one.qty"
-                        />
-                    </template>
-                </group-home-product>
-                <!-- <home-section-headline label="Products :"  />
-                <group-home-product >
-                    <template #default >
-                        <home-product v-for="i in 100" :key="i" />
-                    </template>
-                </group-home-product> -->
+                <div class="g-profile-page_filter-bar">
+                    <p  @click='changeTab(1)'  :class="{active:tab===1}"  class="g-profile-page_tab ">Trends</p>
+                    <p  @click='changeTab(2)'  :class="{active:tab===2}"  class="g-profile-page_tab ">New Products</p>
+                </div>
+                <span v-if="tab === 1" >
+                    <home-section-headline label="Trends Products :"  />
+                    <div class="g-profile-page_product-box" >
+                                <home-product v-for="one in trendProducts" :key="one.id" 
+                                :id="one.id"
+                                :name="one.name"
+                                :desc="one.desc"
+                                :price="one.price"
+                                :qty="one.qty"
+                                />
+                    </div>
+                </span>
+                <span v-if="tab === 2" >
+                    <home-section-headline label="Latest Products :"  />
+                    <div class="g-profile-page_product-box" >
+                                <home-product v-for="one in latestProducts" :key="one.id" 
+                                    :id="one.id"
+                                    :name="one.name"
+                                    :desc="one.desc"
+                                    :price="one.price"
+                                    :qty="one.qty"
+                                />
+                    </div>
+                </span>
             </body>
         </div>
     </div>
@@ -46,12 +54,39 @@ export default {
         GroupHomeProduct,
     },
     setup(){
-        const store = useStore();
-        store.dispatch('homeProductStore/get');
-        const latestProducts =computed(() => store.getters['homeProductStore/latestProducts']);
+
+        const tab = ref(1);
+        // changeTab(1);
+        function changeTab(index){
+            tab.value = index;
+            if(tab.value === 2){
+                getLatestProducts();
+            }else if(tab.value === 1){
+                getTrendProducts();
+            }
+        }
         
+        const store = useStore();
+
+        function getLatestProducts(){
+            store.dispatch('homeProductStore/latestProducts');
+        }
+        
+        function getTrendProducts(){
+            store.dispatch('homeProductStore/trendProducts');
+        }
+
+
+        const latestProducts =computed(() => store.getters['homeProductStore/latestProducts']);
+        const trendProducts =computed(() => {return [...store.getters['homeProductStore/trendProducts'],...latestProducts.value]});
+        
+        store.dispatch('homeProductStore/trendProducts');
+        store.dispatch('homeProductStore/latestProducts');
         return{
+            tab,
+            changeTab,
             latestProducts,
+            trendProducts,
         };
     },
 }

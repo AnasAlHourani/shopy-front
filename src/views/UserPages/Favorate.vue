@@ -4,8 +4,7 @@
             <AppHeader :active="'favorate'" />
             <body class="g-home-page_body" >
                 <home-section-headline :label="'Mon-22/2/2024 :'" />
-                <GroupHomeProduct>
-                    <template #default >
+                <div class="g-profile-page_product-box" >
                         <favorate-product 
                             v-for="one in favorateProduct" :key="one.id"
                             :name="one.name"
@@ -14,14 +13,7 @@
                             :qty="one.qty"
                             :id="one.id"
                         />
-                    </template>
-                </GroupHomeProduct>
-                <!-- <home-section-headline :label="'Mon-22/2/2024 :'" />
-                <GroupHomeProduct>
-                    <template #default >
-                        <favorate-product v-for="i in 100" :key="i" />
-                    </template>
-                </GroupHomeProduct> -->
+                </div>
             </body>
         </div>
     </div>

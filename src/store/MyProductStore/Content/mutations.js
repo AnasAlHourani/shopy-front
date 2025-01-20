@@ -6,7 +6,8 @@ export default {
         state.loadingPage = false;
     },
     add(state,product){
-        state.myProducts.push(product);
+        // .push(product);
+        state.myProducts = [product,...state.myProducts];
     },refresh(state,myProducts){
         state.myProducts = myProducts;
     },update(state,prodcut){

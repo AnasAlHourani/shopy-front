@@ -6,13 +6,14 @@
         <h4 class="home-product_desc" >{{ desc }}</h4>
         <div class="home-product_footer">
             <p class="home-product_price">{{ price }}$</p>
-            <i class="home-product_save-btn cart-product_btn -m" >-</i>
-            <p class="cart-product_qty" >6</p>
-            <i class="home-product_save-btn cart-product_btn -p" >+</i>
+            <i class="home-product_save-btn cart-product_btn -m" @click="minusProduct" >-</i>
+            <p class="cart-product_qty" >{{qty}}</p>
+            <i class="home-product_save-btn cart-product_btn -p" @click="plusProduct" >+</i>
         </div>
     </div>
 </template>
 <script>
+import { useStore } from 'vuex';
 export default {
     props:{
         brand:{
@@ -26,7 +27,26 @@ export default {
         },
         price:{
             default: '0',
-        },
+        },qty:{
+            default: '0',
+        },id:{
+            default: null,
+        }
+    },setup(props){
+        const store = useStore();
+
+        function plusProduct(){
+            store.dispatch('CartStore/plusProduct',{id:props.id,price: props.price});
+        }
+        function minusProduct(){
+            store.dispatch('CartStore/minusProduct',{id:props.id,price: props.price});
+        }
+
+
+        return{
+            plusProduct,
+            minusProduct,
+        };
     }
 }
 </script>

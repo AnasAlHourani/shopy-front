@@ -5,10 +5,15 @@ export default {
     ip(state,getters,rootState,rootGetters){
         const ip =  rootState.backEndIp;
         return {
-            latestProducts: ip + 'product/latestProducts' ,
-            
+            latestProducts: ip + 'product/latest-products' ,
+            trendProducts: ip + 'product/trend-products' ,
+            addToCart: ip + 'product-action/create',
         }
-    },latestProducts(state){
+    }
+    ,latestProducts(state){
         return state.latestProducts;
+    }
+    ,trendProducts(state){
+        return state.trendProducts;
     }
 };
