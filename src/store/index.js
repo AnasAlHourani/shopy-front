@@ -6,7 +6,7 @@ import myProductStore from './MyProductStore/main';
 import homeProductStore from './HomeProductsStore/main';
 import favorateProductsStore from './FavorateProductsStore/main';
 import CartStore from './CartStore/main';
-import OrderStore from './Order/main';
+import orderStore from './Order/main';
 
 export default createStore({
   state: {
@@ -25,6 +25,6 @@ export default createStore({
     homeProductStore,
     favorateProductsStore,
     CartStore,
-    
+    orderStore,
   }
 })

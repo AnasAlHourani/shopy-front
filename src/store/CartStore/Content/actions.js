@@ -78,7 +78,7 @@ export default {
             const response = await axios.post(ip,{},{
                 headers: {Authorization: 'Bearer '+token},
             });
-            if(response.status ===200){
+            if(response.status ===201){
                 console.log(response.data);
                 context.commit('clearCart');
             }

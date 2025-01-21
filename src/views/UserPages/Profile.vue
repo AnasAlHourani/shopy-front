@@ -2,32 +2,28 @@
     <div class="page user-home">
         <div class="page_container user-home_container">
             <app-header :active="'profile'" />
-            <div class="g-home-page_body g-profile-body">
-                <div class="g-profile-page_user-details">
+            <div class="g-home-page_body g-profile-body"   >
+                <div class="g-profile-page_user-details"  >
                     <img src="../../assets/User/Cover.jpeg" alt="" class="g-profile-page_cover" />
                     <img src="../../assets/User/Profile.png" alt="" class="g-profile-page_profile-picture" />
                     <p class="g-profile-page_user-name">User Name</p>
                 </div> 
                 <div class="g-profile-page_filter-bar">
-                    <p  @click='changeTab(1)'  :class="{active:tab===1}"  class="g-profile-page_tab ">Info</p>
+                    <!-- <p  @click='changeTab(1)'  :class="{active:tab===1}"  class="g-profile-page_tab ">Info</p> -->
                     <p  @click='changeTab(2)'  :class="{active:tab===2}" class="g-profile-page_tab">My Products</p>
                     <p  @click='changeTab(3)'  :class="{active:tab===3}" class="g-profile-page_tab">My Salles</p>
                 </div>
                 <transition-group  name="fade" mode="outin" >
-                    <div v-if="tab === 1"  class="g-profile-page_bio-box">
-                        <div class="g-profile-page_bio-headline">Bio</div>
+                    <!-- <div v-if="tab === 1"  class="g-profile-page_bio-box">
+                        <div class="g-profile-page_bio-headline">Status</div>
                         <p class="g-profile-page_bio-content">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum explicabo illo ad! Accusamus nemo culpa cupiditate rerum, corporis repudiandae quidem. Molestiae numquam, natus quae voluptatum doloremque quo ut sit dicta!
+                            New To Shopy
                         </p>
-                        <!-- <div class="g-profile-box_btn-box">
-                            <button class="user-cart_btn-sec user-cart_btn-sec profile" >Clear</button>
-                            <button class="user-cart_btn-sec user-cart_btn-main profile " >Update</button>
-                        </div> -->
-                    </div>
-                    <div v-if="tab === 2" class="g-profile-page_product-box" >
+                    </div> -->
+                    <div v-if="tab === 2" class="g-profile-page_product-box content" :class="{'empty': myProduct.length>0?false:true}" >
                         <ProfileProduct v-for="product in myProduct" :id="product.id" :qty="product.qty" :name="product.name" :desc="product.desc" :price="product.price"  :key="product.id"  />
                     </div>
-                    <div v-if="tab === 3" class="g-profile-page_product-salles" >
+                    <div v-if="tab === 3" class="g-profile-page_product-salles content" :class="{'empty': 100>0?false:true}" >
                         <ProfileProductSell v-for="i in 100" :key="i" />
                     </div>
                 </transition-group >
@@ -63,7 +59,7 @@ export default {
             }
         });
 
-        const tab = ref(1);
+        const tab = ref(2);
         function changeTab(num){
             tab.value = num;
         }

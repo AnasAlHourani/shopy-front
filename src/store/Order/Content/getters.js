@@ -5,9 +5,9 @@ export default {
     ip(state,getters,rootState,rootGetters){
         const ip =  rootState.backEndIp;
         return {
-            create: ip + 'favorate-product/create' ,//id
-            delete: ip + 'favorate-product/delete' ,//id
-            get: ip + 'favorate-product/get',        
+            getAll: ip + 'order/get-all',        
         }
+    },getOrders(state){
+        return state.orders;
     }
 };

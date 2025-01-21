@@ -2,13 +2,13 @@
     <div class="page user-home">
         <div class="page_container user-home_container">
             <AppHeader :active="'home'" />
-            <body class="g-home-page_body">
+            <body class="g-home-page_body" :class="{'empty': trendProducts.length>0?false:true}" >
                 <div class="g-profile-page_filter-bar">
                     <p  @click='changeTab(1)'  :class="{active:tab===1}"  class="g-profile-page_tab ">Trends</p>
                     <p  @click='changeTab(2)'  :class="{active:tab===2}"  class="g-profile-page_tab ">New Products</p>
                 </div>
                 <span v-if="tab === 1" >
-                    <home-section-headline label="Trends Products :"  />
+                    <home-section-headline v-if="trendProducts.length" label="Trends Products :"  />
                     <div class="g-profile-page_product-box" >
                                 <home-product v-for="one in trendProducts" :key="one.id" 
                                 :id="one.id"
@@ -20,7 +20,7 @@
                     </div>
                 </span>
                 <span v-if="tab === 2" >
-                    <home-section-headline label="Latest Products :"  />
+                    <home-section-headline v-if="latestProducts.length" label="Latest Products :"  />
                     <div class="g-profile-page_product-box" >
                                 <home-product v-for="one in latestProducts" :key="one.id" 
                                     :id="one.id"
