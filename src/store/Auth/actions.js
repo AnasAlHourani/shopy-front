@@ -62,5 +62,24 @@ export default {
                 context.commit('setErr',{err: 'Some thing went wrong , please try again later !'});
             }
         }
+    },async getProfile(context){
+        context.commit('sendRequest');
+        const ip = context.getters.ip.getProfile;
+        const token = context.getters.getToken.token;
+        try {
+            const response = await axios.get(ip,{
+                headers: {Authorization: 'Bearer '+ token},
+            } );
+            context.commit('stopSendRequest');
+            if(response.status === 200){
+                const resData = response.data;
+                context.commit('updateLocalDate',resData);
+            }else{
+                throw new Error();
+            }
+        } catch (error) {
+            context.commit('stopSendRequest');
+            context.commit('setErr',{err: 'Some thing went wrong , please try again later !'});
+        }
     }
 };

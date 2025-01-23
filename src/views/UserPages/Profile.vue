@@ -5,8 +5,10 @@
             <div class="g-home-page_body g-profile-body"   >
                 <div class="g-profile-page_user-details"  >
                     <img src="../../assets/User/Cover.jpeg" alt="" class="g-profile-page_cover" />
-                    <img src="../../assets/User/Profile.png" alt="" class="g-profile-page_profile-picture" />
-                    <p class="g-profile-page_user-name">User Name</p>
+                    <img v-if="profile.imgUrl" :src="profile.imgUrl"  alt="" class="g-profile-page_profile-picture" />
+                    <img v-else src="../../assets/User/Profile.png"  alt="" class="g-profile-page_profile-picture" />
+                    <!-- src= -->
+                    <p class="g-profile-page_user-name">{{ profile.firstName }} {{ profile.lastName }}</p>
                 </div> 
                 <div class="g-profile-page_filter-bar">
                     <!-- <p  @click='changeTab(1)'  :class="{active:tab===1}"  class="g-profile-page_tab ">Info</p> -->
@@ -58,16 +60,28 @@ export default {
                 appLoader.value.closeLoader();
             }
         });
+        
+        const profile = computed(()=>store.getters['authStore/getProfile']);
+        
+        if(!profile.value.email && !profile.value.firstName && !profile.value.lastName){
+            store.dispatch('authStore/getProfile');
+        }
+        // watch(profile,(val)=>{
+        //     console.log(val)
+        // });
+
 
         const tab = ref(2);
         function changeTab(num){
             tab.value = num;
         }
+        
         return{
             tab,
             changeTab,
             myProduct,
             appLoader,
+            profile,
         };
     },
 }

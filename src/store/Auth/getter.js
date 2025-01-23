@@ -7,6 +7,7 @@ export default {
         return {
             signUp: ip + 'auth/sign-up',
             logIn: ip + 'auth/log-in',
+            getProfile: ip + 'user/profile',
         };
     },getsendingRequest(state){
         return state.sendingRequest;
@@ -28,6 +29,8 @@ export default {
             email: state.email,
             birthDay: state.birthDay,
             gender: state.gender,
+            id: state.id,
+            imgUrl: state.imgUrl,
         };
     },
     getToken(state){
