@@ -34,6 +34,7 @@
             </body>
         </div>
     </div>
+    <app-loader ref="appLoader" />
 </template>
 <script>
 
@@ -55,8 +56,20 @@ export default {
     },
     setup(){
 
+        const appLoader = ref(null);
+
+        function openLoader(){
+            appLoader.value.openLoader();
+        }
+        function closeLoader(){
+            appLoader.value.closeLoader();
+        }
+    
+        
         const tab = ref(1);
         // changeTab(1);
+
+
         function changeTab(index){
             tab.value = index;
             if(tab.value === 2){
@@ -87,6 +100,8 @@ export default {
             changeTab,
             latestProducts,
             trendProducts,
+            appLoader,
+
         };
     },
 }
