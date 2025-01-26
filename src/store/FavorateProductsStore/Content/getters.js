@@ -12,5 +12,7 @@ export default {
         }
     },getFavorateProducts(state){
         return state.favorateProducts;
+    },loadingPage(state,){
+        return state.loadingPage;
     }
 };

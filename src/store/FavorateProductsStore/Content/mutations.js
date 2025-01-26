@@ -15,5 +15,10 @@ export default {
             }
         }
         state.favorateProducts = result;
+    },openLoadingPage(state){
+        state.loadingPage = true;
+    },
+    closeLoadingPage(state){
+        state.loadingPage = false;
     },
 };

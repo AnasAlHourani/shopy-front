@@ -17,6 +17,8 @@
             </body>
         </div>
     </div>
+    <app-loader ref="appLoader" />
+    <app-msg ref="appMsg" />
 </template>
 <script>
 import AppHeader from '@/components/Global/User/AppHeader.vue';
@@ -24,7 +26,7 @@ import FavorateProduct from '@/components/Custom/Product/FavorateProduct.vue';
 import GroupHomeProduct from '@/components/Custom/Group/GroupHomeProduct.vue';
 import HomeSectionHeadline from '@/components/Custom/SectionHeadline/HomeSectionHeadline.vue';
 import { useStore } from 'vuex';
-import { computed } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 
 export default {
     components: {
@@ -35,9 +37,33 @@ export default {
     },setup(){
         const store = useStore();
         const favorateProduct = computed(_=>store.getters['favorateProductsStore/getFavorateProducts']);
-        store.dispatch('favorateProductsStore/get');
+        
+        onMounted(()=>{
+            store.dispatch('favorateProductsStore/get');
+        });
+
+        const appLoader = ref(null);
+        const appMsg = ref(null);
+
+        const loadingPage = computed(()=>store.getters['favorateProductsStore/loadingPage']);
+
+        function msg(msg,time=500){
+            appMsg.value.setMsg(msg,time);
+        }
+
+        watch(loadingPage,(val)=>{
+            if(val){
+                appLoader.value.openLoader();
+                msg('Loading...',);
+            }else{
+                appLoader.value.closeLoader();
+            }
+        });
+
         return{
             favorateProduct,
+            appLoader,
+            appMsg,
         };
 
     },  
