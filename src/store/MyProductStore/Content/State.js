@@ -1,6 +1,7 @@
 export default function (){
     return {
-        loadingPage: false,
+        loadingPage: null,
         myProducts: [], 
+        
     };
 };

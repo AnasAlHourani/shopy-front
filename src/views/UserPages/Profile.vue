@@ -13,7 +13,7 @@
                 <div class="g-profile-page_filter-bar">
                     <!-- <p  @click='changeTab(1)'  :class="{active:tab===1}"  class="g-profile-page_tab ">Info</p> -->
                     <p  @click='changeTab(2)'  :class="{active:tab===2}" class="g-profile-page_tab">My Products</p>
-                    <p  @click='changeTab(3)'  :class="{active:tab===3}" class="g-profile-page_tab">My Salles</p>
+                    <!-- <p  @click='changeTab(3)'  :class="{active:tab===3}" class="g-profile-page_tab">My Salles</p> -->
                 </div>
                 <transition-group  name="fade" mode="outin" >
                     <!-- <div v-if="tab === 1"  class="g-profile-page_bio-box">
@@ -33,9 +33,10 @@
         </div>
     </div>
     <app-loader ref="appLoader" />
+    <app-msg ref="appMsg" />
 </template>
 <script>
-import { ref , computed, watch } from 'vue';
+import { ref , computed, watch, onMounted } from 'vue';
 import AppHeader from '@/components/Global/User/AppHeader.vue';
 import ProfileProduct from '@/components/Custom/Product/ProfileProduct.vue';
 import ProfileProductSell from '@/components/Custom/ProductSell/ProfileProductSell.vue';
@@ -49,13 +50,20 @@ export default {
     },
     setup(){
         const store = useStore();
-        store.dispatch('myProductStore/get');
+        onMounted(()=>{
+            store.dispatch('myProductStore/get');
+        });
         const myProduct = computed(()=> store.getters['myProductStore/getMyProduct']);
         const loadingPage = computed(()=> store.getters['myProductStore/loadingPage']);
+        const appMsg = ref(null);
+        function msg(msg,time=500){
+            appMsg.value.setMsg(msg,time);
+        }
         const appLoader = ref(null);
         watch(loadingPage,(val)=>{
             if(val){
                 appLoader.value.openLoader();
+                msg('Loading...',);
             }else{
                 appLoader.value.closeLoader();
             }
@@ -66,17 +74,13 @@ export default {
         if(!profile.value.email && !profile.value.firstName && !profile.value.lastName){
             store.dispatch('authStore/getProfile');
         }
-        // watch(profile,(val)=>{
-        //     console.log(val)
-        // });
-
-
         const tab = ref(2);
         function changeTab(num){
             tab.value = num;
         }
         
         return{
+            appMsg,
             tab,
             changeTab,
             myProduct,
