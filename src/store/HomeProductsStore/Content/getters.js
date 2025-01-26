@@ -9,6 +9,8 @@ export default {
             trendProducts: ip + 'product/trend-products' ,
             addToCart: ip + 'product-action/create',
         }
+    },loadingPage(state,){
+        return state.loadingPage;
     }
     ,latestProducts(state){
         return state.latestProducts;

@@ -35,6 +35,7 @@
         </div>
     </div>
     <app-loader ref="appLoader" />
+    <app-msg ref="appMsg" />
 </template>
 <script>
 
@@ -55,17 +56,12 @@ export default {
         GroupHomeProduct,
     },
     setup(){
+        const store = useStore();
 
-        const appLoader = ref(null);
+        const latestProducts = computed(() => store.getters['homeProductStore/latestProducts']);
+        const trendProducts = computed(() => {return store.getters['homeProductStore/trendProducts']});
 
-        function openLoader(){
-            appLoader.value.openLoader();
-        }
-        function closeLoader(){
-            appLoader.value.closeLoader();
-        }
-    
-        
+
         const tab = ref(1);
         // changeTab(1);
 
@@ -73,13 +69,14 @@ export default {
         function changeTab(index){
             tab.value = index;
             if(tab.value === 2){
-                getLatestProducts();
+                if(!latestProducts.value.length)
+                    getLatestProducts();
             }else if(tab.value === 1){
-                getTrendProducts();
+                if(!trendProducts.value.length)
+                    getTrendProducts();
             }
         }
         
-        const store = useStore();
 
         function getLatestProducts(){
             store.dispatch('homeProductStore/latestProducts');
@@ -90,18 +87,37 @@ export default {
         }
 
 
-        const latestProducts =computed(() => store.getters['homeProductStore/latestProducts']);
-        const trendProducts =computed(() => {return [...store.getters['homeProductStore/trendProducts'],...latestProducts.value]});
         
-        store.dispatch('homeProductStore/trendProducts');
-        store.dispatch('homeProductStore/latestProducts');
+        setTimeout(() => {
+            if(!trendProducts.value.length)
+                store.dispatch('homeProductStore/trendProducts');
+            // store.dispatch('homeProductStore/latestProducts');
+        }, 0);
+        const appMsg = ref(null);
+        function msg(msg,time){
+            appMsg.value.setMsg(msg,time);
+        }    
+
+        const appLoader = ref(null);
+        const loadingPage = computed(()=> store.getters['homeProductStore/loadingPage']);
+    
+
+        watch(loadingPage,(val)=>{
+            if(val){
+                appLoader.value.openLoader();
+                msg('Loading...',500);
+            }else{
+                appLoader.value.closeLoader();
+            }
+        });
+
         return{
             tab,
             changeTab,
             latestProducts,
             trendProducts,
             appLoader,
-
+            appMsg,
         };
     },
 }
