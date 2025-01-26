@@ -8,13 +8,15 @@
             </body>
         </div>
     </div>
+    <app-loader ref="appLoader" />
+    <app-msg ref="appMsg" />
 </template>
 <script>
 import AppHeader from '@/components/Global/User/AppHeader.vue';
 import HomeSectionHeadline from '@/components/Custom/SectionHeadline/HomeSectionHeadline.vue';
 import Order from '@/components/Custom/Order/Order.vue';
 import { useStore } from 'vuex';
-import { computed, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 export default {
     components:{
         AppHeader,
@@ -22,10 +24,32 @@ export default {
         Order,
     },setup(){
         const store = useStore();
-        store.dispatch('orderStore/getOrders');
+        onMounted(()=>{
+            store.dispatch('orderStore/getOrders');
+        });
         const orders = computed(()=>store.getters['orderStore/getOrders']);
+        const loadingPage = computed(()=>store.getters['orderStore/loadingPage']);
+        const appLoader = ref(null);
+        const appMsg = ref(null);
+
+        function msg(msg,time=500){
+            appMsg.value.setMsg(msg,time);
+        }
+
+        watch(loadingPage,(val)=>{
+            if(val){
+                appLoader.value.openLoader();
+                msg('Loading...',);
+            }else{
+                appLoader.value.closeLoader();
+            }
+        });
+        
         return{
             orders,
+            appLoader,
+            appMsg,
+
         };
     }
 }

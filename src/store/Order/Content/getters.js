@@ -9,5 +9,7 @@ export default {
         }
     },getOrders(state){
         return state.orders;
+    },loadingPage(state,){
+        return state.loadingPage;
     }
 };
