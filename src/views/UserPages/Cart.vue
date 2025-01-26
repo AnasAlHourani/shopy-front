@@ -25,6 +25,8 @@
             </body>
         </div>
     </div>
+    <app-loader ref="appLoader" />
+    <app-msg ref="appMsg" />
 </template>
 <script>
 import AppHeader from '@/components/Global/User/AppHeader.vue';
@@ -32,7 +34,7 @@ import GroupHomeProduct from '@/components/Custom/Group/GroupHomeProduct.vue';
 import HomeSectionHeadline from '@/components/Custom/SectionHeadline/HomeSectionHeadline.vue';
 import CartProduct from '@/components/Custom/Product/CartProduct.vue';
 import { useStore } from 'vuex';
-import { computed } from 'vue';
+import { computed , watch , onMounted ,ref } from 'vue';
 export default {
     components: {
         AppHeader,
@@ -41,12 +43,14 @@ export default {
         CartProduct,
     },setup(){
         const store = useStore();
-        store.dispatch('CartStore/getCart');
-        store.dispatch('CartStore/getCartProducts');
+        onMounted(()=>{
+            store.dispatch('CartStore/getCart');
+            store.dispatch('CartStore/getCartProducts');
+        });
 
         const cartProducts = computed(()=>store.getters['CartStore/getCartProducts']);
         const cartSum = computed(()=>store.getters['CartStore/getCartSum']);
-
+        
         function clearCart(){
             store.dispatch('CartStore/clearCart');
         }
@@ -54,11 +58,30 @@ export default {
             store.dispatch('CartStore/order');
         }
 
+
+        const appMsg = ref(null);
+        function msg(msg,time=500){
+            appMsg.value.setMsg(msg,time);
+        }
+        const appLoader = ref(null);
+
+        const loadingPage = computed(()=>store.getters['CartStore/loadingPage']);
+        watch(loadingPage,(val)=>{
+            if(val){
+                appLoader.value.openLoader();
+                msg('Loading...',);
+            }else{
+                appLoader.value.closeLoader();
+            }
+        });
+
         return{
             cartSum,
             cartProducts,
             clearCart,
             order,
+            appMsg,
+            appLoader,
         }
     }
 }

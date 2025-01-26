@@ -3,5 +3,6 @@ export default function (){
         cart: null,
         cartProducts: [],
         cartSum: 0,
+        loadingPage: null,
     };
 };

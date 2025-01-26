@@ -45,7 +45,7 @@ import HomeProduct from '@/components/Custom/Product/HomeProduct.vue';
 import HomeSpecailProduct from '@/components/Custom/Product/HomeSpecailProduct.vue';
 import HomeSectionHeadline from '@/components/Custom/SectionHeadline/HomeSectionHeadline.vue';
 import GroupHomeProduct from '@/components/Custom/Group/GroupHomeProduct.vue';
-import {ref,computed,watch} from 'vue';
+import {ref,computed,watch , onMounted} from 'vue';
 import { useStore } from 'vuex';
 export default {
     components:{
@@ -60,7 +60,6 @@ export default {
 
         const latestProducts = computed(() => store.getters['homeProductStore/latestProducts']);
         const trendProducts = computed(() => {return store.getters['homeProductStore/trendProducts']});
-
 
         const tab = ref(1);
         // changeTab(1);
@@ -88,11 +87,11 @@ export default {
 
 
         
-        setTimeout(() => {
+        onMounted(() => {
             if(!trendProducts.value.length)
                 store.dispatch('homeProductStore/trendProducts');
             // store.dispatch('homeProductStore/latestProducts');
-        }, 0);
+        });
         const appMsg = ref(null);
         function msg(msg,time){
             appMsg.value.setMsg(msg,time);

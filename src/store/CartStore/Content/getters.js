@@ -18,5 +18,7 @@ export default {
         return state.cartProducts;
     },getCartSum(state){
         return state.cartSum;
+    },loadingPage(state,){
+        return state.loadingPage;
     }
 };

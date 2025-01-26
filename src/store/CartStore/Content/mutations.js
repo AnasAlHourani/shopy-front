@@ -40,5 +40,10 @@ export default {
     },clearCart(state){
         state.cartProducts = [];
         state.cartSum = 0;
+    },openLoadingPage(state){
+        state.loadingPage = true;
+    },
+    closeLoadingPage(state){
+        state.loadingPage = false;
     },
 }; 
