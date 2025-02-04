@@ -12,14 +12,26 @@ export default {
         state.sendingRequest = false;
     },
     updateLocalDate(state,payload){
-        state.firstName = payload.first_name ;
-        state.lastName = payload.last_name  ;
+        state.firstName = payload.firstName ;
+        state.lastName = payload.firstName  ;
         state.email = payload.email ;
+        state.password = payload.password  ;
+        state.birthDay = payload.birthDay  ;
+        state.gender = payload.gender  ;
+        state.id = payload.id  ;
+        state.imgUrl = payload.imgUrl  ;
+    },
+    updateProfileDate(state,payload){
+        state.firstName = payload.first_name ;
+        state.lastName = payload.first_name  ;
+        state.email = payload.email ;
+        state.password = payload.password  ;
         state.birthDay = payload.birth_day  ;
         state.gender = payload.gender  ;
         state.id = payload.id  ;
-        state.imgUrl = payload.img_url  ;
-    },updateLocalDateLogIn(state,payload){
+        state.imgUrl = payload.imgUrl  ;
+    }
+    ,updateLocalDateLogIn(state,payload){
         state.email = payload.email;
         state.password = payload.password ;
     },signUpSuccessfuly(state,payload){

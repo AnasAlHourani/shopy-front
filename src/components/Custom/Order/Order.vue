@@ -7,7 +7,7 @@
         </div>
         <button class="user-cart_btn-sec cart-order_btn-sec">See detailes</button>
         <button class="user-cart_btn-sec user-cart_btn-main cart-order_btn-main">Download</button>
-        <i class="fas fa-ellipsis-v cart-order_menu-btn" ></i>
+        <!-- <i class="fas fa-ellipsis-v cart-order_menu-btn" ></i> -->
     </div>
 </template>
 <script>
@@ -22,7 +22,7 @@ export default {
         const date = new Date(props.createdAt);
         const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         const dayName = days[date.getDay()];
-        const fullDate = `${date.getDay()+ 1}/${date.getMonth() + 1}/${date.getFullYear()} - ${date.getHours()}:${date.getMinutes()} ${date.getHours()>12?'Am':'Pm'}`
+        const fullDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} - ${date.getHours()}:${date.getMinutes()} ${date.getHours()>12?'Am':'Pm'}`
 
         return{
             dayName,

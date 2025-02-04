@@ -347,9 +347,11 @@ i{
     display: flex;
 }
 
-.g-profile-page_cover{
+.g-profile-page_cover{ 
     width: 100%;
     height: 100%;
+    background-color: var(--solid-pink);
+    border-radius: .5em;
 }
 
 .g-profile-page_profile-picture{

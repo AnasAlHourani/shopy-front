@@ -86,6 +86,7 @@
                 password.value = passwordFiled.value.getValue();
                 birthDay.value = birthDayFiled.value.getValue();
                 gender.value = genderFiled.value.getValue();
+                
             }
             
             function SignUp(){
@@ -99,7 +100,7 @@
                     gender: gender.value,
                 });
                 store.dispatch('authStore/signUp');
-                // console.log(userProfile.value);
+                console.log(userProfile.value);
             }
 
 

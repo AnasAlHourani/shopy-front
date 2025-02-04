@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRoute } from "vue-router";
 
-export default {
+export default { 
     async signUp(context){
         context.commit('sendRequest');
         const ip = context.getters.ip.signUp;
@@ -29,7 +29,6 @@ export default {
             else{
                 console.error('Error during sign-up:', error);
                 context.commit('setErr',{err: 'Some thing went wrong , please try again later !'});
-
             }
         }
     },
@@ -60,7 +59,7 @@ export default {
             else{
                 console.error('Error during sign-up:', error);
                 context.commit('setErr',{err: 'Some thing went wrong , please try again later !'});
-            }
+            } 
         }
     },async getProfile(context){
         context.commit('sendRequest');
@@ -73,7 +72,7 @@ export default {
             context.commit('stopSendRequest');
             if(response.status === 200){
                 const resData = response.data;
-                context.commit('updateLocalDate',resData);
+                context.commit('updateProfileDate',resData);
             }else{
                 throw new Error();
             }

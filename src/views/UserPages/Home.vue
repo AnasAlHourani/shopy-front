@@ -2,9 +2,9 @@
     <div class="page user-home">
         <div class="page_container user-home_container">
             <AppHeader :active="'home'" />
-            <body class="g-home-page_body" :class="{'empty': trendProducts.length>0?false:true}" >
+            <body class="g-home-page_body" :class="{'empty': (!trendProducts.length &&tab === 1)||(!latestProducts.length &&tab === 2) }" >
                 <div class="g-profile-page_filter-bar">
-                    <p  @click='changeTab(1)'  :class="{active:tab===1}"  class="g-profile-page_tab ">Trends</p>
+                    <p  @click='changeTab(1)'  :class="{'active':tab===1}"  class="g-profile-page_tab ">Trends</p>
                     <p  @click='changeTab(2)'  :class="{active:tab===2}"  class="g-profile-page_tab ">New Products</p>
                 </div>
                 <span v-if="tab === 1" >
@@ -90,15 +90,17 @@ export default {
         onMounted(() => {
             if(!trendProducts.value.length)
                 store.dispatch('homeProductStore/trendProducts');
-            // store.dispatch('homeProductStore/latestProducts');
-        });
+                // console.log(store.getters['homeProductStore/getToken']);// to get a token 
+            });
         const appMsg = ref(null);
         function msg(msg,time){
             appMsg.value.setMsg(msg,time);
         }    
 
         const appLoader = ref(null);
-        const loadingPage = computed(()=> store.getters['homeProductStore/loadingPage']);
+        const homeLoadingPage = computed(()=> store.getters['homeProductStore/loadingPage']);
+        const myProductLoadingPage = computed(()=> store.getters['myProductStore/loadingPage']);
+        const loadingPage = computed(()=> homeLoadingPage.value || myProductLoadingPage.value );
     
 
         watch(loadingPage,(val)=>{

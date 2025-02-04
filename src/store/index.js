@@ -11,6 +11,7 @@ import orderStore from './Order/main';
 export default createStore({
   state: {
     backEndIp: 'http://localhost:3000/',
+    // backEndIp: 'http://192.168.1.5:3000/',
   },
   getters: {
   },

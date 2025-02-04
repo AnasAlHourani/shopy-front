@@ -4,7 +4,8 @@
             <app-header :active="'profile'" />
             <div class="g-home-page_body g-profile-body"   >
                 <div class="g-profile-page_user-details"  >
-                    <img src="../../assets/User/Cover.jpeg" alt="" class="g-profile-page_cover" />
+                    <!-- <img src="../../assets/User/Cover.jpeg" alt="" class="g-profile-page_cover" /> -->
+                    <div class="g-profile-page_cover"></div>
                     <img v-if="profile.imgUrl" :src="profile.imgUrl"  alt="" class="g-profile-page_profile-picture" />
                     <img v-else src="../../assets/User/Profile.png"  alt="" class="g-profile-page_profile-picture" />
                     <!-- src= -->

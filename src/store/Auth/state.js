@@ -11,7 +11,7 @@ export default function state(){
         id: null,
         imgUrl:'',
         // token: '',
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhYWFAYWFhLmFhYSIsImlhdCI6MTczNzcyNzg4NCwiZXhwIjoxNzM4NDQ3ODg0LCJpc3MiOiJTaG9weSJ9.JdTf8uPW1nu4Q6Ultb95RM1No5E8Z7-YfksznbND-7I', 
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhbmFzQGFuYXMuYW5hcyIsImlhdCI6MTczODQzNDYyNywiZXhwIjoxNzM5MTU0NjI3LCJpc3MiOiJTaG9weSJ9.GXS3bFjZwx08Ua8c-fBygJlhSKpObtDqQcRaArzzQoQ',
         logged: false,
         // backEndIp: 'http://localhost:3000/',
     };
