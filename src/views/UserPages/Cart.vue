@@ -44,6 +44,7 @@ export default {
     },setup(){
         const store = useStore();
         onMounted(()=>{
+            document.title = "Cart";
             store.dispatch('CartStore/getCart');
             store.dispatch('CartStore/getCartProducts');
         });

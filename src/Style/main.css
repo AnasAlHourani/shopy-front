@@ -61,6 +61,7 @@ i{
     font-weight: bold;
     cursor: pointer;
     display: none;
+    z-index: 10000;
 }
 
 .g-header-logo{
@@ -201,6 +202,22 @@ i{
 .g-menu-header{
     /* position: relative; */
 }
+.g-menu-header_notification-icon{
+    position: relative;
+}
+.notification-icon_number-of-notification{
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(27%, -17%) rotate(5deg);
+    transform: translate(60%, -17%) rotate(5deg);
+    font-size: 0.7em;
+    background: var(--white);
+    padding: .1em;
+    border-radius: .3em;
+    font-weight: 700;
+    color: var(--solid-pink);
+}
 .g-menu-header_menu{
     width: 15em;
     height: calc(100dvh);
@@ -237,6 +254,7 @@ i{
     box-shadow: 0px 2px 7px -2px var(--solid-purple);
     border: 1px solid var(--solid-purple);
     right: 10em;
+    right: 7em;
     width: 20em;
     height: 22em;
     z-index: 1000;
@@ -593,6 +611,20 @@ i{
         justify-content: space-around;
         align-items: center;
     }
+    .g-notification-menu{
+        width: 100dvw;
+        height: 100dvh;
+        right: auto;
+        left: 0;
+        top: 0;
+        border: 0;
+    }
+    .g-notification{
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
 }
 @media (max-width: 550px) {
     #app{

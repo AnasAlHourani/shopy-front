@@ -88,6 +88,7 @@ export default {
 
         
         onMounted(() => {
+            document.title = "Home";
             if(!trendProducts.value.length)
                 store.dispatch('homeProductStore/trendProducts');
                 // console.log(store.getters['homeProductStore/getToken']);// to get a token 

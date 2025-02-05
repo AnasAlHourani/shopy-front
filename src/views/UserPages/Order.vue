@@ -25,6 +25,7 @@ export default {
     },setup(){
         const store = useStore();
         onMounted(()=>{
+            document.title = "Orders";
             store.dispatch('orderStore/getOrders');
         });
         const orders = computed(()=>store.getters['orderStore/getOrders']);

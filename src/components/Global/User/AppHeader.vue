@@ -1,7 +1,7 @@
 <template>
     <header class="g-home-page_header" >
         <header-logo />
-        <search-box  />
+        <!-- <search-box  /> -->
         <menu-header :active="active" />
     </header>
 </template>

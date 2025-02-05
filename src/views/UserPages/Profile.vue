@@ -52,6 +52,7 @@ export default {
     setup(){
         const store = useStore();
         onMounted(()=>{
+            document.title = "User Profile";
             store.dispatch('myProductStore/get');
         });
         const myProduct = computed(()=> store.getters['myProductStore/getMyProduct']);

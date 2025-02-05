@@ -26,7 +26,7 @@ import FavorateProduct from '@/components/Custom/Product/FavorateProduct.vue';
 import GroupHomeProduct from '@/components/Custom/Group/GroupHomeProduct.vue';
 import HomeSectionHeadline from '@/components/Custom/SectionHeadline/HomeSectionHeadline.vue';
 import { useStore } from 'vuex';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch ,} from 'vue';
 
 export default {
     components: {
@@ -39,6 +39,7 @@ export default {
         const favorateProduct = computed(_=>store.getters['favorateProductsStore/getFavorateProducts']);
         
         onMounted(()=>{
+            document.title = "Favorate Products";
             store.dispatch('favorateProductsStore/get');
         });
 

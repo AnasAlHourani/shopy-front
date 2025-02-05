@@ -1,7 +1,9 @@
 <template>
     <div class="g-menu-header">
         <i class="fa fa-plus" @click="toOpenProductPopup" ></i>
-        <i class="fas fa-bell" @click="toOpenNotification" ></i>
+        <i class="fas fa-bell g-menu-header_notification-icon" @click="toOpenNotification" >
+            <p v-if="unSeenedNotifications.length != 0" class="notification-icon_number-of-notification" >{{ unSeenedNotifications.length }}</p>
+        </i>
         <i class="fas fa-shopping-cart" @click="toCartPage"  ></i>
         <i class="fa fa-bars" @click="toOpenMenu" ></i>
         <transition name="fade" >
@@ -42,6 +44,7 @@
                 <p v-for="one in notifications" :key="one.id" @click="makeNotificationSeen(one.id)" class="g-notification" :class="{'seen': one.seen}" >{{ one.content }}</p>
             </div>
         </transition>
+        <div v-if="openNotification" class="g-close-btn-for-mobile" @click="toCloseNotification"  >+</div>
         <div  v-if="openNotification" class="g-bk bk-notfication" @click="toCloseNotification" ></div>
         <!-- ================= -->
         <transition name="header-menu" >
@@ -61,7 +64,7 @@
 </template>
 
 <script>
-import { ref , watch , computed } from 'vue';
+import { ref , watch , computed , onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import HeaderLogo from '@/components/Global/HeaderLogo.vue';
 import MenuHeaderBtn from '@/components/Custom/Buttons/MenuHeaderBtn.vue';
@@ -77,8 +80,9 @@ export default {
     setup(){
         const store = useStore();
         const notifications = computed(()=> store.getters['notificationStore/getNotifications']);
+        const unSeenedNotifications = computed(()=> store.getters['notificationStore/getUnSeened']);
         store.dispatch('notificationStore/getMyNotfications');
-        
+
         function makeNotificationSeen(id) {
             store.dispatch('notificationStore/makeNotificationSeen',{id});
         }
@@ -128,6 +132,8 @@ export default {
             openProductPopUp.value = !true;
         }
         
+
+        setInterval(()=>{console.log(document.querySelectorAll('.g-close-btn-for-mobile'))},500);
     
 
 
@@ -151,6 +157,7 @@ export default {
             productQty,
             productPrice,
             createProduct,
+            unSeenedNotifications,
         };
     },
 }
