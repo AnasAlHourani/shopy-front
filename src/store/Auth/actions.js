@@ -80,5 +80,23 @@ export default {
             context.commit('stopSendRequest');
             context.commit('setErr',{err: 'Some thing went wrong , please try again later !'});
         }
+    },async updateProfilePicture(context,formData){
+        context.commit('sendRequest');
+        const ip = context.getters.ip.updateProfilePicture;
+        const token = context.getters.getToken.token;
+        try {
+            const response = await axios.put(ip, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    "Authorization": `bearer ${token}`
+                },
+                });
+                if( response.status === 200){
+                    context.commit('updateProfileDate',response.data.user);
+                }
+                context.commit('stopSendRequest');
+            } catch (error) {
+                context.commit('setErr',{err: 'Some thing went wrong , please try again later !'});
+            } 
     }
 };

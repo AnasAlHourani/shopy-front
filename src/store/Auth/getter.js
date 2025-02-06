@@ -9,6 +9,7 @@ export default {
             signUp: ip + 'auth/sign-up',
             logIn: ip + 'auth/log-in',
             getProfile: ip + 'user/profile',
+            updateProfilePicture: ip + 'user/upload-profile-pictuer',
         };
     },getsendingRequest(state){
         return state.sendingRequest;

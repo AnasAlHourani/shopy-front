@@ -4,8 +4,8 @@
             <app-header :active="'profile'" />
             <div class="g-home-page_body g-profile-body"   >
                 <div class="g-profile-page_user-details"  >
-                    <!-- <img src="../../assets/User/Cover.jpeg" alt="" class="g-profile-page_cover" /> -->
-                    <div class="g-profile-page_cover"></div>
+                    <img src="../../assets/User/Cover.jpeg" alt="" class="g-profile-page_cover" />
+                    <!-- <div class="g-profile-page_cover"></div> -->
                     <div  class="g-profile-page-profile_box" >
                         <div  class="g-profile-page-profile-box_content" >
                             <img @click="picUploader.click()" v-if="profile.imgUrl" :src="backIp+profile.imgUrl"  alt="" class="g-profile-page_profile-picture" />
@@ -63,19 +63,30 @@ export default {
         });
         const backIp = computed(()=> store.getters['authStore/ip'].raw);
         const myProduct = computed(()=> store.getters['myProductStore/getMyProduct']);
-        const loadingPage = computed(()=> store.getters['myProductStore/loadingPage']);
-        console.log(backIp.value);
+        const loadingAuth = computed(()=>store.getters['authStore/getsendingRequest']);
+        const loadingPageMyProduct = computed(()=> {
+            return store.getters['myProductStore/loadingPage'];
+        });
+
+        const loadingPage = computed((val)=> {
+            return loadingAuth.value||loadingPageMyProduct.value;
+        });
+
         const appMsg = ref(null);
         function msg(msg,time=500){
             appMsg.value.setMsg(msg,time);
         }
         const appLoader = ref(null);
         watch(loadingPage,(val)=>{
-            if(val){
-                appLoader.value.openLoader();
-                msg('Loading...',);
-            }else{
-                appLoader.value.closeLoader();
+            if (val) {
+                if (appLoader.value) {
+                    appLoader.value.openLoader();
+                    msg('Loading...');
+                }
+            } else {
+                if (appLoader.value) {
+                    appLoader.value.closeLoader();
+                }
             }
         });
         
@@ -98,19 +109,9 @@ export default {
             }
             let formData = new FormData();
             formData.append("image", img.value);
-
-            try {
-                const response = await axios.put("http://localhost:3000/user/upload-profile-pictuer", formData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        "Authorization": `bearer ${store.getters['authStore/getToken'].token}`
-                    },
-                    });
-                    console.log("File uploaded successfully:", response.data);
-                } catch (error) {
-                    console.error("Error uploading file:", error);
-                }// dont forget to refresh local data
+            store.dispatch('authStore/updateProfilePicture',formData);
         };
+
         return{
             appMsg,
             tab,
