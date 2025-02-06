@@ -5,6 +5,7 @@ export default {
     ip(state,_,rootState){
         const ip = rootState.backEndIp;
         return {
+            raw: ip,
             signUp: ip + 'auth/sign-up',
             logIn: ip + 'auth/log-in',
             getProfile: ip + 'user/profile',

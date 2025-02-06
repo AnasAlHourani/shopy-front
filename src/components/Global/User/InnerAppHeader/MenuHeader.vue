@@ -131,10 +131,7 @@ export default {
         function toCloseProductPopup(){
             openProductPopUp.value = !true;
         }
-        
-
-        setInterval(()=>{console.log(document.querySelectorAll('.g-close-btn-for-mobile'))},500);
-    
+            
 
 
         return{

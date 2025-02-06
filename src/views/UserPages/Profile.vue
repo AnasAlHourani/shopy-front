@@ -6,8 +6,13 @@
                 <div class="g-profile-page_user-details"  >
                     <!-- <img src="../../assets/User/Cover.jpeg" alt="" class="g-profile-page_cover" /> -->
                     <div class="g-profile-page_cover"></div>
-                    <img v-if="profile.imgUrl" :src="profile.imgUrl"  alt="" class="g-profile-page_profile-picture" />
-                    <img v-else src="../../assets/User/Profile.png"  alt="" class="g-profile-page_profile-picture" />
+                    <div  class="g-profile-page-profile_box" >
+                        <div  class="g-profile-page-profile-box_content" >
+                            <img @click="picUploader.click()" v-if="profile.imgUrl" :src="backIp+profile.imgUrl"  alt="" class="g-profile-page_profile-picture" />
+                            <img @click="picUploader.click()" v-else src="../../assets/User/Profile.png"  alt="" class="g-profile-page_profile-picture" />
+                            <p @click="picUploader.click()" class="g-profile-page-profile-picture_hover"> Click to upload a picture </p>
+                        </div>
+                    </div>
                     <!-- src= -->
                     <p class="g-profile-page_user-name">{{ profile.firstName }} {{ profile.lastName }}</p>
                 </div> 
@@ -32,6 +37,7 @@
                 </transition-group >
             </div>
         </div>
+        <input style="display: none;" ref="picUploader" type="file" @change="handleFileUpload" />
     </div>
     <app-loader ref="appLoader" />
     <app-msg ref="appMsg" />
@@ -41,8 +47,8 @@ import { ref , computed, watch, onMounted } from 'vue';
 import AppHeader from '@/components/Global/User/AppHeader.vue';
 import ProfileProduct from '@/components/Custom/Product/ProfileProduct.vue';
 import ProfileProductSell from '@/components/Custom/ProductSell/ProfileProductSell.vue';
-
 import { useStore } from 'vuex'; 
+import axios from 'axios';
 export default {
     components:{
         AppHeader,
@@ -55,8 +61,10 @@ export default {
             document.title = "User Profile";
             store.dispatch('myProductStore/get');
         });
+        const backIp = computed(()=> store.getters['authStore/ip'].raw);
         const myProduct = computed(()=> store.getters['myProductStore/getMyProduct']);
         const loadingPage = computed(()=> store.getters['myProductStore/loadingPage']);
+        console.log(backIp.value);
         const appMsg = ref(null);
         function msg(msg,time=500){
             appMsg.value.setMsg(msg,time);
@@ -80,7 +88,29 @@ export default {
         function changeTab(num){
             tab.value = num;
         }
-        
+        const picUploader= ref(null);
+        const img = ref(null);
+        async function handleFileUpload(event){
+            img.value = event.target.files[0];
+            if (!img.value) {
+                alert("Please select a file first!");
+                return;
+            }
+            let formData = new FormData();
+            formData.append("image", img.value);
+
+            try {
+                const response = await axios.put("http://localhost:3000/user/upload-profile-pictuer", formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        "Authorization": `bearer ${store.getters['authStore/getToken'].token}`
+                    },
+                    });
+                    console.log("File uploaded successfully:", response.data);
+                } catch (error) {
+                    console.error("Error uploading file:", error);
+                }// dont forget to refresh local data
+        };
         return{
             appMsg,
             tab,
@@ -88,6 +118,9 @@ export default {
             myProduct,
             appLoader,
             profile,
+            picUploader,
+            handleFileUpload,
+            backIp,
         };
     },
 }

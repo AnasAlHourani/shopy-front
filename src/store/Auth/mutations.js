@@ -19,7 +19,7 @@ export default {
         state.birthDay = payload.birthDay  ;
         state.gender = payload.gender  ;
         state.id = payload.id  ;
-        state.imgUrl = payload.imgUrl  ;
+        state.imgUrl =  payload.img_url  ;
     },
     updateProfileDate(state,payload){
         state.firstName = payload.first_name ;
@@ -29,7 +29,7 @@ export default {
         state.birthDay = payload.birth_day  ;
         state.gender = payload.gender  ;
         state.id = payload.id  ;
-        state.imgUrl = payload.imgUrl  ;
+        state.imgUrl = payload.img_url  ;
     }
     ,updateLocalDateLogIn(state,payload){
         state.email = payload.email;
