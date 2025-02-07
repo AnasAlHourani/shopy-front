@@ -6,11 +6,12 @@
                 <group-home-product v-if="cartProducts.length" class="user-cart_head-line btn-box" >
                     <template #default>
                         <h3 class="user-cart-head-line_title">Cart  : </h3>
-                            <h5 class="user-cart-price-box_total" >Total Price : {{ cartSum }} $</h5>
+                        <h5 class="user-cart-price-box_total" >Total Price : {{ cartSum }} $</h5>
                         <button class="user-cart_btn-sec" @click="clearCart" >Clear all</button>
                         <button class="user-cart_btn-sec user-cart_btn-main" @click="order" >Order now</button>
                     </template>
                 </group-home-product>
+                <home-section-headline v-else :label="'No Products In The Cart'" />
                 <div class="g-profile-page_product-box" >
                     <cart-product 
                     v-for="one in cartProducts" 

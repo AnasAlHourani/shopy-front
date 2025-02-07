@@ -60,6 +60,9 @@ export default {
         onMounted(()=>{
             document.title = "User Profile";
             store.dispatch('myProductStore/get');
+            if(!profile.value.email && !profile.value.firstName && !profile.value.lastName){
+                store.dispatch('authStore/getProfile');
+            }
         });
         const backIp = computed(()=> store.getters['authStore/ip'].raw);
         const myProduct = computed(()=> store.getters['myProductStore/getMyProduct']);
@@ -92,9 +95,7 @@ export default {
         
         const profile = computed(()=>store.getters['authStore/getProfile']);
         
-        if(!profile.value.email && !profile.value.firstName && !profile.value.lastName){
-            store.dispatch('authStore/getProfile');
-        }
+        
         const tab = ref(2);
         function changeTab(num){
             tab.value = num;

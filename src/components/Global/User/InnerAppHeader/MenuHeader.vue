@@ -123,6 +123,7 @@ export default {
             router.push('/cart');
         }
         function logout(){
+            store.commit('authStore/logout');
             router.push('/log-in');
         }
         function toOpenProductPopup(){

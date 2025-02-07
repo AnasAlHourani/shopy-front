@@ -41,5 +41,15 @@ export default {
         state.lastName = payload.last_name;
         state.grender = payload.grender;
         state.birthDay = payload.birth_day; 
+    },saveToLocal(state){
+        //localStorage.getItem('token')
+        const token = state.token;
+        localStorage.setItem('token',token);
+    },getTokenLocal(state){
+        const token = localStorage.getItem('token');
+        state.token = token;
+        console.log('get token from local storage ' ,token );
+    },logout(){
+        localStorage.removeItem('token');
     }
 };

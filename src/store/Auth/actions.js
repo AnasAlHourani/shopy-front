@@ -12,6 +12,7 @@ export default {
             if(response.status === 201){
                 const resData = response.data;
                 context.commit('signUpSuccessfuly',{token: resData.token});
+                context.commit('saveToLocal');
             }else{
                 throw new Error();
             }
@@ -42,6 +43,7 @@ export default {
             if(response.status === 201){
                 const resData = response.data;
                 context.commit('signUpSuccessfuly',{token: resData.token});
+                context.commit('saveToLocal');
             }else{
                 throw new Error();
             }

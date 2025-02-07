@@ -5,3 +5,10 @@
       </transition-group>
     </router-view>
 </template>
+<script>
+export default {
+  beforeMount(){
+    this.$store.commit('authStore/getTokenLocal');
+  }
+}
+</script>

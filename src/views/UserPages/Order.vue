@@ -4,6 +4,7 @@
             <AppHeader :active="'order'" />
             <body class="g-home-page_body cart-page" :class="{'empty': orders.length>0?false:true}" >
                 <home-section-headline v-if="orders.length" :label="'Orders :'" />
+                <home-section-headline v-else :label="'There is No Orders :'" />
                 <Order v-for="one in orders " :key="one.id" :id="one.id" :created-at="one.createdAt" />
             </body>
         </div>
