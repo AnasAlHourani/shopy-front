@@ -16,7 +16,8 @@
 import HeaderLogo from '@/components/Global/HeaderLogo.vue';
 import LoginForm from '@/components/Custom/Auth/LoginForm.vue';
 import AppLoader from '@/components/Global/AppLoader.vue';
-import { ref , provide } from 'vue';
+import { ref , provide , reactive , computed } from 'vue';
+
 export default {
     components:{
         HeaderLogo,
@@ -38,6 +39,8 @@ export default {
         provide('openLoader',openLoader);
         provide('closeLoader',closeLoader);
         provide('msg',msg);
+
+
         return{
             appLoader,
             appMsg,
