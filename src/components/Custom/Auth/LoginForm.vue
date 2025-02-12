@@ -4,8 +4,8 @@
         <div class="auth-page-form_middle-bar" ></div>
         <div class="auth-page-form_inputs" >
             <h3 class="auth-form_headline" >LOG IN</h3>
-            <AuthFormInput :label="'Your email :'" v-model="state.email" ref="emailFiled" :placeholder="'jhon@example.com'" :type="'email'" />
-            <AuthFormInput :label="'Your password :'" v-model="state.password" ref="passwordFiled" :placeholder="'**********'" :type="'password'" />
+            <AuthFormInput :label="'Your email :'"  :inpErr="emailErr"  ref="emailFiled" :placeholder="'jhon@example.com'" :type="'email'" />
+            <AuthFormInput :label="'Your password :'" :inpErr="passwordErr" ref="passwordFiled" :placeholder="'**********'" :type="'password'" />
             <auth-form-btn  @click="logIn" :label="'Log in'" />
             <auth-form-link :to="'/sign-up'" :label="'Create a new email !'" />
         </div>
@@ -22,7 +22,7 @@
     import { useStore } from 'vuex';
     import { computed , watch, reactive   } from 'vue';
     import useVuelidate from '@vuelidate/core';
-    import { required , email } from '@vuelidate/validators';
+    import { required , email ,helpers} from '@vuelidate/validators';
     export default {
         components:{ 
             AuthFormInput,
@@ -30,6 +30,8 @@
             AuthFormLink,
         },
         setup(){
+
+
             const router = useRouter();
             const store = useStore();
 
@@ -77,48 +79,87 @@
                 console.log(password);
                 console.log('###############');
             }
-            function fakeConnection(){
-                // collectData();
-                // printValues();
-                // openLoader();
-                // msg('Loading...');
-                // setTimeout(() => {
-                //     closeLoader();
-                // }, 500);
-            }
+            const emailErr = ref(0);
+            const passwordErr = ref(0);
+
+            const emailValue = computed(()=>{
+                if(emailFiled.value){
+                    return emailFiled.value.getValue();
+                }else{
+                    return '';
+                }
+            });
+            const passwordValue = computed(()=>{
+                if(emailFiled.value){
+                    return passwordFiled.value.getValue();
+                }else{
+                    return '';
+                }
+            });
+
             // const state = reactive({
-            //     email:  'ss',
-            //     password: ''
+            //     email: emailValue.value,
+            //     password: passwordValue.value,
             // });
-            const email = ref('ssss');
+
+            const state = reactive({
+                get email() {
+                    return emailValue.value;
+                },
+                get password() {
+                    return passwordValue.value;
+                },
+            });
+            
+            const isNumeric = helpers.withMessage('Field must contain only numbers.', value =>
+                /^[0-9]+$/.test(value)
+            );
+            const hasValidLength = helpers.withMessage('Field must be exactly 8 digits long (less 20 number).', value =>
+                value?.length >= 8 && value?.length <= 20
+            );
             const rules = computed(()=>{
-                return {
-                    email:  { required , email },
-                    password: { required }
-                };
+                return{
+                    email: {required ,email  }  ,
+                    password: {
+                        required,
+                        isNumeric,       // Custom numeric validator
+                        hasValidLength, 
+                    },
+                }; 
             });
 
             const $v = useVuelidate(rules,state);
 
             async function logIn(){
-                await $v.value.$validate();
-                if(!$v.value.$error){
-                    // store.dispatch('authStore/logIn');
-                    // collectData();
-                    // store.commit('authStore/updateLocalDateLogIn',{email:email.value,password: password.value});
-                    // store.dispatch('authStore/logIn');
+                $v.value.$validate();
+                if($v.value.$error){
+                    if($v.value.email.$error){
+                        msg($v.value.email.$errors[0].$message);
+                        emailErr.value=true;
+                    }
+                    else if($v.value.password.$error){
+                        emailErr.value=!true;
+                        passwordErr.value=true;
+                        msg($v.value.password.$errors[0].$message);
+                    }
                 }else{
-                    console.log($v.value.email.$errors[0].$message);
-                    console.log($v.value);
+                    passwordErr.value=!true;
+                    console.log(state);
+                    store.dispatch('authStore/logIn');
+                    collectData();
+                    store.commit('authStore/updateLocalDateLogIn',{email:emaile.value,password: password.value});
+                    store.dispatch('authStore/logIn');
                 }
+
+                    
             }
             
             return{
                 emailFiled,
                 passwordFiled,
                 logIn,
-                $v,
-                state,
+                emailErr,
+                passwordErr,
             };
         },
     }

@@ -83,6 +83,7 @@
     border-radius: .6em;
     width: 18em;
     width: 85%;
+    transition: .5s  all ease-in-out;
 }
 .auth-form_btn{
     background: var(--solid-pink);

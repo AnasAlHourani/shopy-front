@@ -1,7 +1,7 @@
 <template>
     <div class="auth-form_input" >
         <label class="auth-form-input-label" > {{ label }} </label>
-            <input class="auth-form-input_inp" v-model="value" :placeholder="placeholder" :type='type'>
+            <input class="auth-form-input_inp" :class="{'g-inp-err':inpErr}" v-model="value" :placeholder="placeholder" :type='type'>
     </div>
 </template>
 <script>
@@ -11,9 +11,11 @@ export default {
         label:{
             default: 'default value'
         },placeholder:{
-            default: 'default placehoder'
+            default: 'default placehoder' 
         },type:{
             default: 'text',
+        },inpErr: {
+            default: false,
         }
     },
     setup(){
