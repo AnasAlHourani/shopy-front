@@ -2,11 +2,11 @@
     <div class="auth-form_input auth-form_input-double" >
         <div class="auth-form_input">
             <label class="auth-form-input-label" > {{ label1 }} </label>
-            <input class="auth-form-input_inp" v-model="value1" :placeholder="placeholder1"  :type='type1'>
+            <input :class="{'g-inp-err':inpErr[0]}" class="auth-form-input_inp" v-model="value1" :placeholder="placeholder1"  :type='type1'>
         </div>
         <div class="auth-form_input">
             <label class="auth-form-input-label" > {{ label2 }} </label>
-            <input class="auth-form-input_inp" v-model="value2" :placeholder="placeholder2"  :type='type2'>
+            <input :class="{'g-inp-err':inpErr[1]}" class="auth-form-input_inp" v-model="value2" :placeholder="placeholder2"  :type='type2'>
         </div>
     </div>
 </template>
@@ -32,6 +32,9 @@ export default {
         type2:{
             default: 'text',
         },
+        inpErr:{
+            default: [0,0],
+        }
     },
     setup(){
         const value1 = ref('');

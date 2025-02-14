@@ -131,6 +131,10 @@
     justify-content: space-around;
     width: 100%;
     color: var(--solid-purple);
+    width: 85%;
+    margin: 0 auto;
+    border-radius: .4em;
+    padding: 2px;
 }
 .auth-form-options_option{
     margin: 0.4em;

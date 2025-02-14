@@ -3,11 +3,11 @@
     <form class="auth-page_form" >
         <div class="auth-page-form_inputs" >
             <h3 class="auth-form_headline" >SIGN UP</h3>
-            <auth-form-double-input :inpErr="[filedBool[0],filedBool[1]]" ref="nameFiled" :label1="'First name :'" :label2="'Last naem :'" :placeholder1="'Jhon'" :placeholder2="'Wealth'" />
-            <AuthFormInput :inpErr="filedBool[2]" ref="emailFiled" :label="'Your email :'" :placeholder="'jhon@example.com'" :type="'email'" />
-            <AuthFormInput :inpErr="filedBool[3]" ref="passwordFiled" :label="'Your password :'" :placeholder="'**********'" :type="'password'" />
-            <AuthFormInput :inpErr="filedBool[4]" ref="birthDayFiled" :label="'Your Birth day :'" :placeholder="''" :type="'date'" />
-            <auth-form-radio :inpErr="filedBool[5]" ref="genderFiled" />
+            <auth-form-double-input :inpErr="[fieldBool[0],fieldBool[1]]" ref="nameFiled" :label1="'First name :'" :label2="'Last naem :'" :placeholder1="'Jhon'" :placeholder2="'Wealth'" />
+            <AuthFormInput :inpErr="fieldBool[2]" ref="emailFiled" :label="'Your email :'" :placeholder="'jhon@example.com'" :type="'email'" />
+            <AuthFormInput :inpErr="fieldBool[3]" ref="passwordFiled" :label="'Your password :'" :placeholder="'**********'" :type="'password'" />
+            <AuthFormInput :inpErr="fieldBool[4]" ref="birthDayFiled" :label="'Your Birth day :'" :placeholder="''" :type="'date'" />
+            <auth-form-radio :inpErr="fieldBool[5]" ref="genderFiled" />
             <auth-form-btn @click="SignUp"  :label="'Sign up'" />
             <auth-form-link :to="'/log-in'" :label="'Already have an account?!'" />
         </div>
@@ -16,7 +16,8 @@
     </form>
 </template>
 <script>
-    import { ref , computed , watch } from 'vue';
+    import { ref , computed , watch , reactive} from 'vue';
+    import axios from 'axios';
     import AuthFormInput from '../Inputs/AuthFormInput.vue';
     import AuthFormDoubleInput from '../Inputs/AuthFormDoubleInput.vue';
     import AuthFormLink from '../Links/AuthFormLink.vue';
@@ -25,10 +26,10 @@
     import { inject } from 'vue';
     import { useStore } from 'vuex';
     import { useRouter } from 'vue-router';
-import useVuelidate from '@vuelidate/core';
-import { reactive } from 'vue';
-import { helpers, required , email } from '@vuelidate/validators';
-    
+    import useVuelidate from '@vuelidate/core';
+    import { required , email ,helpers} from '@vuelidate/validators';
+
+
     export default {
         components:{
             AuthFormInput,
@@ -45,6 +46,8 @@ import { helpers, required , email } from '@vuelidate/validators';
             const loadPage = computed(()=> store.getters['authStore/getsendingRequest']);
             const toHomePage = computed(()=>store.getters['authStore/getLogged']);
 
+
+
             const openLoader = inject('openLoader');
             const msg = inject('msg');
             const closeLoader = inject('closeLoader');
@@ -53,6 +56,7 @@ import { helpers, required , email } from '@vuelidate/validators';
                 if(value)
                     msg(value);
             });
+
             watch(loadPage,(value)=>{
                 if(value){
                     openLoader();
@@ -61,6 +65,7 @@ import { helpers, required , email } from '@vuelidate/validators';
                     
                 }
             });
+
             watch(toHomePage,(value)=>{
                 if(value) {
                     router.push('/home');
@@ -92,7 +97,6 @@ import { helpers, required , email } from '@vuelidate/validators';
             
             
 
-
             function printValues(){
                 console.log('###############');
                 console.log(firstName.value);
@@ -103,69 +107,77 @@ import { helpers, required , email } from '@vuelidate/validators';
                 console.log(gender.value);
                 console.log('###############');
             }
-            
+
             const state = reactive({
-                get firstName(){
+                get firstName() {
                     return nameFiled.value.getValue()[0];
                 },
-                get lastName(){
+                get lastName() {
                     return nameFiled.value.getValue()[1];
                 },
-                get email(){
-                    return emailFiled.value.getValue();
+                get email() {
+                    return emailValue.value;
                 },
-                get password(){
-                    return passwordFiled.value.getValue();
+                get password() {
+                    return password.value;
                 },
-                get birthDay(){
-                    return birthDayFiled.value.getValue();
+                get birthDay() {
+                    return birthDay.value;
                 },
-                get gender(){
-                    return  genderFiled.value.getValue();
+                get gender() {
+                    return gender.value;
                 },
-
             });
+            const isNumeric = helpers.withMessage('Field must contain only numbers.', value =>
+                /^[0-9]+$/.test(value)
+            );
+            const hasValidLength = helpers.withMessage('Field must be exactly 8 digits long (less 20 number).', value =>
+                value?.length >= 8 && value?.length <= 20
+            );
             const hasNameLength = helpers.withMessage('Field must be exactly 3 digits long (less 10 number).', value =>
                 value?.length >= 3 && value?.length <= 10
             );
-            const hasGoodPassword = helpers.withMessage('Password has to be nimuric and between 8 to 20 nimuric .', value =>
-                value?.length >= 8 && value?.length <= 20 && /^[0-9]+$/.test(value)
+            const hasValiedBT = helpers.withMessage('Field must be exactly 8 digits long (less 20 number).', value =>
+                new Date().getFullYear()- new Date(val).getFullYear()>0
             );
-            const rules = computed(_=>{
+            const rules = computed(()=>{
                 return {
                     firstName: {required,hasNameLength},
                     lastName: {required,hasNameLength},
                     email: {required,email},
-                    password: {required,hasGoodPassword},
+                    password: {required,isNumeric,hasValidLength},
                     gender: {required},
                     birthDay: {required},
                 };
             });
             const $v = useVuelidate(rules,state);
-            const filedBool = ref([0,0,0,0,0,0,0]);
+
+            const fieldBool = ref([0,0,0,0,0,0]);
+
             function SignUp(){
-                filedBool.value = [0,0,0,0,0,0,0];
+                console.log(state.email);
+                printValues();
+                fieldBool.value = [0,0,0,0,0,0];
                 $v.value.$validate();
                 if($v.value.$error){
-                    console.log('Error with validation');// remove after 
                     if($v.value.firstName.$error){
-                        msg($v.value.firstName.$errors[0].$message);
-                        filedBool.value[0] = 1;
+                        msg('First name is required and has a chars 3 or greater ');
+                        fieldBool.value[0]= 1;
                     }else if($v.value.lastName.$error){
-                        msg($v.value.lastName.$errors[0].$message);
-                        filedBool.value[1] = 1;
+                        msg('last name is required and has a chars 3 or greater');
+                        fieldBool.value[1]= 1;
                     }else if($v.value.email.$error){
                         msg($v.value.email.$errors[0].$message);
-                        filedBool.value[2] = 1;
+                        fieldBool.value[2]= 1;
                     }else if($v.value.password.$error){
                         msg($v.value.password.$errors[0].$message);
-                        filedBool.value[3] = 1;
+                        fieldBool.value[3]= 1;
                     }else if($v.value.birthDay.$error){
-                        msg($v.value.birthDay.$errors[0].$message);
-                        filedBool.value[4] = 1;
+                        msg('The birthday filed is required and at least 10 years old');
+                        fieldBool.value[4]= 1;
                     }else if($v.value.gender.$error){
-                        msg($v.value.gender.$errors[0].$message);
-                        filedBool.value[5] = 1;
+                        msg('You have to pick a gender');
+                        fieldBool.value[5]= 1;
                     }
                 }else{
                     collectData();
@@ -178,8 +190,11 @@ import { helpers, required , email } from '@vuelidate/validators';
                         gender: gender.value,
                     });
                     store.dispatch('authStore/signUp');
+                    console.log(userProfile.value);
                 }
             }
+
+
             return{
                 nameFiled,
                 emailFiled,
@@ -187,7 +202,7 @@ import { helpers, required , email } from '@vuelidate/validators';
                 genderFiled,
                 birthDayFiled,
                 SignUp,
-                filedBool,
+                fieldBool,
             };
         },
     }
