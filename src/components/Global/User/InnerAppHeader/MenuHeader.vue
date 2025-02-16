@@ -32,7 +32,7 @@
                     <textarea class="g-product_input" v-model="productDesc" placeholder="Product Description ..." ></textarea>
                 </div>
                 <div class="g-product-pop-up_btn-box">
-                    <button class="user-cart_btn-sec user-cart_btn-sec"  >Cancel</button>
+                    <button class="user-cart_btn-sec user-cart_btn-sec"  @click="toCloseProductPopup" >Cancel</button>
                     <button class="user-cart_btn-sec user-cart_btn-main" @click="createProduct" >Create</button>
                 </div>
             </div>
