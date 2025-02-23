@@ -25,7 +25,8 @@ export default {
         const token = context.getters.getToken;
         try{    
             const response = await axios.post(ip,product,{
-                headers: {Authorization: 'Bearer '+ token}
+                headers: {Authorization: 'Bearer '+ token},
+                'Content-Type': 'multipart/form-data'
             });
             if(response.status === 201){
                 const product = response.data.prodcut;

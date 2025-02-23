@@ -11,11 +11,12 @@
                     <home-section-headline v-if="trendProducts.length" label="Trends Products :"  />
                     <div class="g-profile-page_product-box" >
                                 <home-product v-for="one in trendProducts" :key="one.id" 
-                                :id="one.id"
-                                :name="one.name"
-                                :desc="one.desc"
-                                :price="one.price"
-                                :qty="one.qty"
+                                    :id="one.id"
+                                    :name="one.name"
+                                    :desc="one.desc"
+                                    :price="one.price"
+                                    :qty="one.qty"
+                                    :imgUrl="one.img_url"
                                 />
                     </div>
                 </span>
@@ -28,6 +29,7 @@
                                     :desc="one.desc"
                                     :price="one.price"
                                     :qty="one.qty"
+                                    :imgUrl="one.img_url"
                                 />
                     </div>
                 </span>
@@ -60,6 +62,8 @@ export default {
 
         const latestProducts = computed(() => store.getters['homeProductStore/latestProducts']);
         const trendProducts = computed(() => {return store.getters['homeProductStore/trendProducts']});
+
+
 
         const tab = ref(1);
         // changeTab(1);

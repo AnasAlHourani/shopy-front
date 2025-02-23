@@ -24,7 +24,7 @@
                 </div>
                 <div class="g-product-pop-up_input-box">
                     <div class="g-product-pop-up_label">Product Picture:</div>
-                    <input ref="productFile"  type="file" placeholder="2" class="g-product_input">
+                    <input ref="productFile" @change="onFileChange"  type="file" placeholder="2" class="g-product_input">
                 </div>
                 <div class="g-product-pop-up_input-box  desc ">
                     <div class="g-product-pop-up_label">Product description:</div>
@@ -92,13 +92,20 @@ export default {
         const productPrice = ref('');
         const productQty = ref('');
 
+        let productFileImg = ref(null);
+
+        function onFileChange(event) {
+            productFileImg.value = event.target.files[0];
+        }
+
         async function createProduct(){
-            await store.dispatch('myProductStore/create',{
-                name: productName.value,
-                desc: productDesc.value,
-                qty: productQty.value,
-                price: productPrice.value,
-            });
+            const formData = new FormData();
+            formData.append('productImg', productFileImg.value);
+            formData.append('name', productName.value);
+            formData.append('desc', productDesc.value);
+            formData.append('price', productPrice.value);
+            formData.append('qty', productQty.value);
+            await store.dispatch('myProductStore/create',formData);
             toCloseProductPopup();
         }
         
@@ -156,6 +163,7 @@ export default {
             productPrice,
             createProduct,
             unSeenedNotifications,
+            onFileChange,
         };
     },
 }

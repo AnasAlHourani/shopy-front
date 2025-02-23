@@ -1,6 +1,7 @@
 <template>
     <div class="home-product" >
-        <img class="home-product_img" src="../../../assets/logo.png" alt="">
+        <img v-if="imgUrl" class="home-product_img" :src="backIp+imgUrl" alt="">
+        <img v-else class="home-product_img" src="../../../assets/logo.png" alt="">
         <h4 class="home-product_brand" >{{ brand }}</h4>
         <h4 class="home-product_title" >{{ name }}</h4>
         <h4 class="home-product_desc" >{{ desc }}</h4>
@@ -12,6 +13,7 @@
     </div>
 </template>
 <script>
+import { computed } from 'vue';
 import { useStore } from 'vuex';
 
 export default {
@@ -29,7 +31,7 @@ export default {
             default: '0',
         },id:{
             default: null,
-        }
+        },imgUrl:{},
     },setup(props,){
         const store = useStore();
         function addToFavorate(){
@@ -38,11 +40,14 @@ export default {
         function addToCart(){
             store.dispatch('homeProductStore/addToCart',{id: props.id});
         }
+        const backIp = computed(()=> store.getters['authStore/ip'].raw);
 
         return{
             addToFavorate,
             addToCart,
+            backIp
         };
+    },mounted(){
     }
 }
 </script>

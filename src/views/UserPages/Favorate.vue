@@ -13,6 +13,7 @@
                             :price="one.price"
                             :qty="one.qty"
                             :id="one.id"
+                            :imgUrl="one.img_url"
                         />
                 </div>
             </body>

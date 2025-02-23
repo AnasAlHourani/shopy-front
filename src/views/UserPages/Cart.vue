@@ -21,6 +21,7 @@
                         :qty="one.qty"
                         :price="one.price"
                         :id="one.id"
+                        :imgUrl="one.img_url"
                     />
                 </div>
             </body>

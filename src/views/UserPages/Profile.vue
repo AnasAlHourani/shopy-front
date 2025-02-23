@@ -29,7 +29,7 @@
                         </p>
                     </div> -->
                     <div v-if="tab === 2" class="g-profile-page_product-box content" :class="{'empty': myProduct.length>0?false:true}" >
-                        <ProfileProduct v-for="product in myProduct" :id="product.id" :qty="product.qty" :name="product.name" :desc="product.desc" :price="product.price"  :key="product.id"  />
+                        <ProfileProduct v-for="product in myProduct" :id="product.id" :qty="product.qty" :name="product.name" :desc="product.desc" :price="product.price" :imgUrl="product.img_url" :key="product.id"  />
                     </div>
                     <div v-if="tab === 3" class="g-profile-page_product-salles content" :class="{'empty': 100>0?false:true}" >
                         <ProfileProductSell v-for="i in 100" :key="i" />
@@ -112,7 +112,7 @@ export default {
             formData.append("image", img.value);
             store.dispatch('authStore/updateProfilePicture',formData);
         };
-
+        watch(myProduct,v=>console.log(v));
         return{
             appMsg,
             tab,
