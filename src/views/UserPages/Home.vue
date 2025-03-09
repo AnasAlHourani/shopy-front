@@ -17,6 +17,7 @@
                                     :price="one.price"
                                     :qty="one.qty"
                                     :imgUrl="one.img_url"
+                                    :brand="one.brand"
                                 />
                     </div>
                 </span>
@@ -30,6 +31,7 @@
                                     :price="one.price"
                                     :qty="one.qty"
                                     :imgUrl="one.img_url"
+                                    :brand="one.brand"
                                 />
                     </div>
                 </span>

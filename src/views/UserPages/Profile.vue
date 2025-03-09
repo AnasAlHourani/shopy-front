@@ -21,7 +21,7 @@
                     <p  @click='changeTab(2)'  :class="{active:tab===2}" class="g-profile-page_tab">My Products</p>
                     <!-- <p  @click='changeTab(3)'  :class="{active:tab===3}" class="g-profile-page_tab">My Salles</p> -->
                 </div>
-                <transition-group  name="fade" mode="outin" >
+                <!-- <transition-group  name="fade" mode="outin" > -->
                     <!-- <div v-if="tab === 1"  class="g-profile-page_bio-box">
                         <div class="g-profile-page_bio-headline">Status</div>
                         <p class="g-profile-page_bio-content">
@@ -29,12 +29,12 @@
                         </p>
                     </div> -->
                     <div v-if="tab === 2" class="g-profile-page_product-box content" :class="{'empty': myProduct.length>0?false:true}" >
-                        <ProfileProduct v-for="product in myProduct" :id="product.id" :qty="product.qty" :name="product.name" :desc="product.desc" :price="product.price" :imgUrl="product.img_url" :key="product.id"  />
+                        <ProfileProduct v-for="product in myProduct" :id="product.id" :qty="product.qty" :name="product.name" :desc="product.desc" :price="product.price" :imgUrl="product.img_url" :key="product.id" :brand="product.brand" />
                     </div>
                     <div v-if="tab === 3" class="g-profile-page_product-salles content" :class="{'empty': 100>0?false:true}" >
                         <ProfileProductSell v-for="i in 100" :key="i" />
                     </div>
-                </transition-group >
+                <!-- </transition-group > -->
             </div>
         </div>
         <input style="display: none;" ref="picUploader" type="file" @change="handleFileUpload" />

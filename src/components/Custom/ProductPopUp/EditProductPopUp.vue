@@ -12,13 +12,13 @@
                     <input type="text" v-model="price" :placeholder="productPrice"  class="g-product_input">
                 </div>
                 <div class="g-product-pop-up_input-box">
-                    <div class="g-product-pop-up_label">Quentity:</div>
-                    <input type="text" v-model="qty" :placeholder="productQty"   class="g-product_input">
+                    <div class="g-product-pop-up_label">Brand :</div>
+                    <input type="text" v-model="brand" :placeholder="brand"   class="g-product_input">
                 </div>
-                <div class="g-product-pop-up_input-box">
+                <!-- <div class="g-product-pop-up_input-box">
                     <div class="g-product-pop-up_label">Product Picture:</div>
-                    <input ref="productFile"   type="file" placeholder="2" class="g-product_input">
-                </div>
+                    <input ref="productFile" @change="onFileChange"  type="file" placeholder="2" class="g-product_input">
+                </div> -->
                 <div class="g-product-pop-up_input-box  desc ">
                     <div class="g-product-pop-up_label">Product description:</div>
                     <!-- <input type="text"> -->
@@ -51,6 +51,9 @@ export default {
         productPrice:{
             default: 'product price'
         },productId:{},
+        productBrand:{
+
+        }
     },
     setup(props){
         const popUp = ref(!true);
@@ -64,6 +67,8 @@ export default {
         const desc = ref(props.productDesc);
         const qty = ref(props.productQty);
         const price = ref(props.productPrice);
+        const brand = ref(props.productBrand);
+        let productFileImg = ref(null);
         const store = useStore();
         async function updateProduct  (){
             await store.dispatch('myProductStore/update',{
@@ -72,8 +77,12 @@ export default {
                 qty: qty.value,
                 price: price.value,
                 id: props.productId,
+                brand: brand.value,
             });
             close();
+        }
+        function onFileChange(event) {
+            productFileImg.value = event.target.files[0];
         }
         
         return{
@@ -85,6 +94,8 @@ export default {
             desc,
             price,
             qty,
+            brand,
+            onFileChange,
         };
     },
 }

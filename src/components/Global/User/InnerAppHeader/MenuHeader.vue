@@ -15,10 +15,14 @@
                     <input type="text" v-model="productName" placeholder="Ice Creem" class="g-product_input">
                 </div>
                 <div class="g-product-pop-up_input-box">
+                    <div class="g-product-pop-up_label">Brand :</div>
+                    <input type="text" v-model="productBrand" placeholder="shopy" class="g-product_input">
+                </div>
+                <div class="g-product-pop-up_input-box">
                     <div class="g-product-pop-up_label" >Price:</div>
                     <input type="text" v-model="productPrice" placeholder="3.1" class="g-product_input">
                 </div>
-                <div class="g-product-pop-up_input-box">
+                <div style="display: none" class="g-product-pop-up_input-box">
                     <div class="g-product-pop-up_label">Quentity:</div>
                     <input type="text" v-model="productQty" placeholder="2" class="g-product_input">
                 </div>
@@ -90,7 +94,8 @@ export default {
         const productName = ref('');
         const productDesc = ref('');
         const productPrice = ref('');
-        const productQty = ref('');
+        const productQty = ref(1);
+        const productBrand = ref('');
 
         let productFileImg = ref(null);
 
@@ -105,6 +110,7 @@ export default {
             formData.append('desc', productDesc.value);
             formData.append('price', productPrice.value);
             formData.append('qty', productQty.value);
+            formData.append('brand', productBrand.value);
             await store.dispatch('myProductStore/create',formData);
             toCloseProductPopup();
         }
@@ -161,6 +167,7 @@ export default {
             productDesc,
             productQty,
             productPrice,
+            productBrand,
             createProduct,
             unSeenedNotifications,
             onFileChange,

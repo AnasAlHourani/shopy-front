@@ -14,6 +14,7 @@
                             :qty="one.qty"
                             :id="one.id"
                             :imgUrl="one.img_url"
+                            :brand="one.brand"
                         />
                 </div>
             </body>

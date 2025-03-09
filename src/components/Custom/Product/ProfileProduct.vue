@@ -18,6 +18,7 @@
         :productPrice="price"
         :productQty="qty"
         :productId="id"
+        :productBrand="brand"
     />
 </template>
 <script>
