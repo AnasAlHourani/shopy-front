@@ -11,7 +11,7 @@
                             <img @click="picUploader.click()" v-if="profile.imgUrl" :src="backIp+profile.imgUrl"  alt="" class="g-profile-page_profile-picture" />
                             <img @click="picUploader.click()" v-else src="../../assets/User/Profile.png"  alt="" class="g-profile-page_profile-picture" />
                             <p @click="picUploader.click()" class="g-profile-page-profile-picture_hover"> Click to upload a picture </p>
-                        </div>
+                        </div> 
                     </div>
                     <!-- src= -->
                     <p class="g-profile-page_user-name">{{ profile.firstName }} {{ profile.lastName }}</p>
@@ -57,12 +57,10 @@ export default {
     },
     setup(){
         const store = useStore();
-        onMounted(()=>{
+        onMounted(async ()=>{
             document.title = "User Profile";
             store.dispatch('myProductStore/get');
-            if(!profile.value.email && !profile.value.firstName && !profile.value.lastName){
-                store.dispatch('authStore/getProfile');
-            }
+            await store.dispatch('authStore/getProfile');
         });
         const backIp = computed(()=> store.getters['authStore/ip'].raw);
         const myProduct = computed(()=> store.getters['myProductStore/getMyProduct']);

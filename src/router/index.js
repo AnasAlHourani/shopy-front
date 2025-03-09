@@ -21,7 +21,6 @@ const router = createRouter({
 
 router.beforeEach((to,from,next)=>{
   const fullBath = to.fullPath;
-  console.log(fullBath);
   if(fullBath === '/log-in' || fullBath === '/sign-up' || fullBath === '/err-not-found' || fullBath === '/err-not-auth'){
     next();
   }else{

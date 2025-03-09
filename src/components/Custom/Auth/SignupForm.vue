@@ -25,9 +25,9 @@
     import { inject } from 'vue';
     import { useStore } from 'vuex';
     import { useRouter } from 'vue-router';
-import useVuelidate from '@vuelidate/core';
-import { reactive } from 'vue';
-import { helpers, required , email } from '@vuelidate/validators';
+    import useVuelidate from '@vuelidate/core';
+    import { reactive } from 'vue';
+    import { helpers, required , email } from '@vuelidate/validators';
     
     export default {
         components:{
@@ -141,6 +141,7 @@ import { helpers, required , email } from '@vuelidate/validators';
                     birthDay: {required},
                 };
             });
+
             const $v = useVuelidate(rules,state);
             const filedBool = ref([0,0,0,0,0,0,0]);
             function SignUp(){
@@ -188,6 +189,7 @@ import { helpers, required , email } from '@vuelidate/validators';
                 birthDayFiled,
                 SignUp,
                 filedBool,
+                printValues,
             };
         },
     }

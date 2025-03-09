@@ -13,7 +13,7 @@ export default {
     },
     updateLocalDate(state,payload){
         state.firstName = payload.firstName ;
-        state.lastName = payload.firstName  ;
+        state.lastName = payload.lastName  ;
         state.email = payload.email ;
         state.password = payload.password  ;
         state.birthDay = payload.birthDay  ;
@@ -23,7 +23,7 @@ export default {
     },
     updateProfileDate(state,payload){
         state.firstName = payload.first_name ;
-        state.lastName = payload.first_name  ;
+        state.lastName = payload.last_name  ;
         state.email = payload.email ;
         state.password = payload.password  ;
         state.birthDay = payload.birth_day  ;
@@ -48,7 +48,6 @@ export default {
     },getTokenLocal(state){
         const token = localStorage.getItem('token');
         state.token = token;
-        console.log('get token from local storage ' ,token );
     },logout(){
         localStorage.removeItem('token');
     }
